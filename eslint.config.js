@@ -19,4 +19,18 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    // Vendored ReactBits effects: they mirror props into refs during render (the "latest ref"
+    // pattern) and read them inside rAF loops. Kept close to upstream so updates stay diffable.
+    files: [
+      'src/components/reactbits/{DitherVeil,FlexCarousel,FluidGlass,GlassSurface,LaserFlow,MaskedHeading,OptionWheel,SideRays,TechText}.tsx',
+    ],
+    rules: {
+      'react-hooks/refs': 'off',
+      'react-hooks/immutability': 'off',
+      'react-hooks/set-state-in-effect': 'off',
+      'no-empty': ['error', { allowEmptyCatch: true }],
+      'no-useless-assignment': 'off',
+    },
+  },
 ])

@@ -1,493 +1,331 @@
-@import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import 'tailwindcss';
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/geist-mono';
 
+/* ------------------------------------------------------------------ */
+/* Tokens                                                              */
+/* ------------------------------------------------------------------ */
 @theme {
-  /* Typography */
-  --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-family-mono: 'Geist Mono', monospace;
-  
-  /* Light mode colors */
-  --color-background: #f8f9fa;
-  --color-foreground: #1a1a2e;
-  --color-card: #ffffff;
-  --color-card-foreground: #1a1a2e;
-  --color-popover: #ffffff;
-  --color-popover-foreground: #1a1a2e;
-  --color-primary: #2563eb;
-  --color-primary-foreground: #ffffff;
-  --color-secondary: #f1f3f5;
-  --color-secondary-foreground: #1a1a2e;
-  --color-muted: #e9ecef;
-  --color-muted-foreground: #64748b;
-  --color-accent: #e7f0ff;
-  --color-accent-foreground: #1a1a2e;
-  --color-destructive: #dc2626;
-  --color-destructive-foreground: #ffffff;
-  --color-border: rgba(0, 0, 0, 0.12);
-  --color-input: #ffffff;
-  --color-ring: #2563eb;
-  
-  /* Chart colors */
-  --color-chart-1: oklch(0.646 0.222 41.116);
-  --color-chart-2: oklch(0.6 0.118 184.704);
-  --color-chart-3: oklch(0.398 0.07 227.392);
-  --color-chart-4: oklch(0.828 0.189 84.429);
-  --color-chart-5: oklch(0.769 0.188 70.08);
-  
-  /* Radius */
-  --radius: 0.75rem;
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'SFMono-Regular', monospace;
+
+  --color-paper: #f2f1ee;
+  --color-ink: #0b0b0c;
+  --color-ink-2: #141416;
+  --color-ink-3: #1f1f22;
+  --color-mist: #8e9092;
+  --color-accent: #ff6a3d;
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-quart: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-/* Explicit light theme */
-.light,
-:root:not(.dark) {
-  --color-background: #f8f9fa;
-  --color-foreground: #1a1a2e;
-  --color-card: #ffffff;
-  --color-card-foreground: #1a1a2e;
-  --color-popover: #ffffff;
-  --color-popover-foreground: #1a1a2e;
-  --color-primary: #2563eb;
-  --color-primary-foreground: #ffffff;
-  --color-secondary: #f1f3f5;
-  --color-secondary-foreground: #1a1a2e;
-  --color-muted: #e9ecef;
-  --color-muted-foreground: #64748b;
-  --color-accent: #e7f0ff;
-  --color-accent-foreground: #1a1a2e;
-  --color-destructive: #dc2626;
-  --color-destructive-foreground: #ffffff;
-  --color-border: rgba(0, 0, 0, 0.12);
-  --color-input: #ffffff;
-  --color-ring: #2563eb;
-  
-  --color-chart-1: #3b82f6;
-  --color-chart-2: #10b981;
-  --color-chart-3: #f59e0b;
-  --color-chart-4: #8b5cf6;
-  --color-chart-5: #ec4899;
+/* Text and rule colours as variables, so a surface can redefine them for everything inside it. */
+@theme inline {
+  --color-fg: var(--fg);
+  --color-fg-2: var(--fg-2);
+  --color-fg-3: var(--fg-3);
+  --color-line: var(--line);
 }
 
-/* Explicit dark theme - this will override light theme when .dark class is present */
-.dark {
-  --color-background: #000000 !important;
-  --color-foreground: #ffffff !important;
-  --color-card: #0a0a0a !important;
-  --color-card-foreground: #ffffff !important;
-  --color-popover: #0a0a0a !important;
-  --color-popover-foreground: #ffffff !important;
-  --color-primary: #ffffff !important;
-  --color-primary-foreground: #000000 !important;
-  --color-secondary: #1a1a1a !important;
-  --color-secondary-foreground: #ffffff !important;
-  --color-muted: #1a1a1a !important;
-  --color-muted-foreground: #a3a3a3 !important;
-  --color-accent: #262626 !important;
-  --color-accent-foreground: #ffffff !important;
-  --color-destructive: #dc2626 !important;
-  --color-destructive-foreground: #ffffff !important;
-  --color-border: rgba(255, 255, 255, 0.1) !important;
-  --color-input: rgba(255, 255, 255, 0.1) !important;
-  --color-ring: rgba(255, 255, 255, 0.2) !important;
-  
-  --color-chart-1: #3b82f6 !important;
-  --color-chart-2: #10b981 !important;
-  --color-chart-3: #f59e0b !important;
-  --color-chart-4: #8b5cf6 !important;
-  --color-chart-5: #ec4899 !important;
-}
-
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
 @layer base {
-  * {
-    @apply border-border;
+  :root {
+    --gutter: clamp(1.25rem, 6vw, 7.5rem);
+    --fg: #f2f1ee;
+    --fg-2: rgb(242 241 238 / 0.72);
+    --fg-3: rgb(242 241 238 / 0.55);
+    --line: rgb(242 241 238 / 0.13);
+    color-scheme: dark;
   }
 
-  body {
-    @apply bg-background text-foreground;
-    font-family: 'Geist Mono', monospace;
-    /* font-size: 14px; */
-  }
-  
   html {
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    background: var(--color-ink);
+    -webkit-text-size-adjust: 100%;
   }
 
-  body {
-    overflow-x: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-  
-  .scrollbar-hide {
-    -ms-overflow-style: none;
+  /* Scrollbars stay functional but invisible — page and inner panels alike. */
+  * {
     scrollbar-width: none;
   }
-  
-  .scrollbar-hide::-webkit-scrollbar {
+  *::-webkit-scrollbar {
     display: none;
   }
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    background: var(--color-ink);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+    border-radius: 6px;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  img {
+    user-select: none;
+    -webkit-user-drag: none;
+  }
 }
 
-/* Improved scrollbar styling */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+/* ------------------------------------------------------------------ */
+/* Typography                                                          */
+/* ------------------------------------------------------------------ */
+@utility label {
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-3);
 }
 
-::-webkit-scrollbar-track {
-  background: var(--color-background);
+@utility text-outline-strong {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(242 241 238 / 0.4);
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--color-muted-foreground);
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-foreground);
-}
-
-/* Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-muted-foreground) var(--color-background);
-}
-
-/* Simple card styling */
-.card-hover {
-  transition: all 0.3s ease;
-}
-
-.card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-}
-
-.dark .card-hover:hover {
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
-}
-
-/* Light mode card enhancements */
-.light .bg-card,
-:root:not(.dark) .bg-card {
-  background: #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-}
-
-.light .border,
-:root:not(.dark) .border {
-  border-color: rgba(0, 0, 0, 0.12);
-}
-
-/* Colorful card variants for light mode */
-.light .card-blue {
-  background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
-  border: 1px solid #bfdbfe;
-}
-
-.light .card-purple {
-  background: linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%);
-  border: 1px solid #ddd6fe;
-}
-
-.light .card-green {
-  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
-  border: 1px solid #bbf7d0;
-}
-
-.light .card-orange {
-  background: linear-gradient(135deg, #ffffff 0%, #fff7ed 100%);
-  border: 1px solid #fed7aa;
-}
-
-.light .card-pink {
-  background: linear-gradient(135deg, #ffffff 0%, #fdf2f8 100%);
-  border: 1px solid #fbcfe8;
-}
-
-/* Image overlay */
-.image-overlay {
-  position: relative;
+/* Masked line used by reveal animations. */
+@utility mask-line {
+  display: block;
   overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
 }
 
-.image-overlay::after {
-  content: '';
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------------ */
+/* Interactive primitives                                              */
+/* ------------------------------------------------------------------ */
+
+/* Text roll: two stacked copies slide on hover. */
+.roll {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
+  line-height: 1.2;
+}
+.roll > span {
+  display: block;
+  transition: transform 0.6s var(--ease-expo);
+}
+.roll > span + span {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  transform: translateY(105%);
+}
+:is(a, button):hover .roll > span:first-child,
+:is(a, button):focus-visible .roll > span:first-child {
+  transform: translateY(-105%);
+}
+:is(a, button):hover .roll > span + span,
+:is(a, button):focus-visible .roll > span + span {
+  transform: translateY(0);
 }
 
-.image-overlay:hover::after {
-  opacity: 1;
-}
-
-/* Fade in animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out;
-}
-
-/* Pulse animation for blur effects */
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-.animate-pulse {
-  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-/* Ensure smooth transitions */
-* {
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Better touch targets on mobile */
-@media (max-width: 768px) {
-  button, a {
-    min-height: 44px;
-    min-width: 44px;
-  }
-}
-
-/* Improved focus visible states */
-*:focus-visible {
-  outline: 2px solid var(--color-ring);
-  outline-offset: 2px;
-}
-
-/* Smooth transitions for theme changes */
-.dark,
-.light {
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Card improvements */
-.card {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Better backdrop blur support */
-@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
-  .backdrop-blur-sm {
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-  }
-  .backdrop-blur-md {
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-  }
-  .backdrop-blur-xl {
-    -webkit-backdrop-filter: blur(24px);
-    backdrop-filter: blur(24px);
-  }
-  .backdrop-blur-2xl {
-    -webkit-backdrop-filter: blur(40px);
-    backdrop-filter: blur(40px);
-  }
-}
-
-/* Improved grid background visibility */
-.grid-pattern {
-  mask-image: radial-gradient(ellipse 80% 50% at 50% 50%, #000 70%, transparent 100%);
-}
-
-/* Slick Carousel Custom Styles */
-.slick-slider {
+/* Underline that draws in from the left and leaves to the right. */
+.link-line {
   position: relative;
-  display: block;
-  box-sizing: border-box;
-  user-select: none;
-  touch-action: pan-y;
-  -webkit-tap-highlight-color: transparent;
-  margin: 0 -12px;
 }
-
-.slick-list {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-}
-
-.slick-list:focus {
-  outline: none;
-}
-
-.slick-list.dragging {
-  cursor: pointer;
-  cursor: hand;
-}
-
-.slick-slider .slick-track,
-.slick-slider .slick-list {
-  transform: translate3d(0, 0, 0);
-}
-
-.slick-track {
-  position: relative;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: stretch;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.slick-track:before,
-.slick-track:after {
-  display: table;
+.link-line::after {
   content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.6s var(--ease-expo);
+}
+:is(a, button):hover .link-line::after,
+:is(a, button):focus-visible .link-line::after,
+a.link-line:hover::after,
+a.link-line:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
-.slick-track:after {
-  clear: both;
+/* ReactBits ShinyText: a band of light sweeps across muted text. */
+.shiny-text {
+  display: inline-block;
+  color: rgb(242 241 238 / 0.6);
+  background: linear-gradient(120deg, transparent 40%, rgb(255 255 255 / 0.95) 50%, transparent 60%) 0 0 / 200% 100% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shine 4s linear infinite;
+}
+@keyframes shine {
+  from { background-position: 100%; }
+  to { background-position: -100%; }
 }
 
-.slick-loading .slick-track {
-  visibility: hidden;
+/* ReactBits FlowingMenu: the band's contents loop by exactly one copy. */
+.flowing-marquee {
+  animation: flowing-marquee linear infinite;
+}
+@keyframes flowing-marquee {
+  to { transform: translateX(-50%); }
 }
 
-.slick-slide {
-  display: flex !important;
-  flex-direction: column;
-  height: inherit;
-  min-height: 1px;
-  float: none;
+/*
+ * ReactBits holographic shine (ProfileCard foil + GlareHover sweep), used by HoloCard.
+ * The foil is brushed silver rather than rainbow, so hovered cards stay in the site's palette.
+ * The pointer position arrives as --px / --py; every layer is inert to the pointer.
+ */
+.holo {
+  --px: 50%;
+  --py: 50%;
 }
-
-.slick-slide > div {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.slick-track {
-  display: flex;
-  align-items: stretch;
-}
-
-[dir='rtl'] .slick-slide {
-  float: right;
-}
-
-.slick-slide img {
-  display: block;
-}
-
-.slick-slide.slick-loading img {
-  display: none;
-}
-
-.slick-slide.dragging img {
+.holo > :is(.holo-foil, .holo-glare, .holo-sweep, .holo-edge) {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
   pointer-events: none;
 }
-
-.slick-initialized .slick-slide {
-  display: flex !important;
+.holo-foil {
+  background: repeating-linear-gradient(
+    110deg,
+    hsl(0 0% 46%) 0%,
+    hsl(30 12% 82%) 5%,
+    hsl(0 0% 58%) 10%,
+    hsl(0 0% 90%) 15%,
+    hsl(0 0% 46%) 20%
+  );
+  background-size: 400% 400%;
+  background-position: var(--px) var(--py);
+  mix-blend-mode: color-dodge;
+  -webkit-mask-image: radial-gradient(circle at var(--px) var(--py), #000, transparent 60%);
+  mask-image: radial-gradient(circle at var(--px) var(--py), #000, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-expo);
 }
-
-.slick-loading .slick-slide {
-  visibility: hidden;
+.holo-glare {
+  background: radial-gradient(circle at var(--px) var(--py), rgb(255 255 255 / 0.16), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-expo);
 }
-
-.slick-vertical .slick-slide {
-  display: block;
-  height: auto;
-  border: 1px solid transparent;
+.holo:hover > .holo-foil {
+  opacity: 0.16;
 }
-
-.slick-arrow.slick-hidden {
-  display: none;
-}
-
-/* Slick dots */
-.slick-dots {
-  position: relative;
-  bottom: 0;
-  display: block;
-  width: 100%;
-  padding: 0;
-  margin: 20px 0 0 0;
-  list-style: none;
-  text-align: center;
-}
-
-.slick-dots li {
-  position: relative;
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin: 0 5px;
-  padding: 0;
-  cursor: pointer;
-}
-
-.slick-dots li button {
-  font-size: 0;
-  line-height: 0;
-  display: block;
-  width: 20px;
-  height: 20px;
-  padding: 5px;
-  cursor: pointer;
-  color: transparent;
-  border: 0;
-  outline: none;
-  background: transparent;
-}
-
-.slick-dots li button:before {
-  font-size: 6px;
-  line-height: 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  content: '•';
-  text-align: center;
-  opacity: 0.25;
-  color: var(--color-foreground);
-}
-
-.slick-dots li.slick-active button:before {
-  opacity: 0.75;
-  color: var(--color-foreground);
-}
-
-.slick-dots li button:hover:before,
-.slick-dots li button:focus:before {
+.holo:hover > .holo-glare {
   opacity: 1;
+}
+.holo-sweep {
+  background: linear-gradient(-45deg, transparent 42%, rgb(255 255 255 / 0.2) 50%, transparent 58%) no-repeat;
+  background-size: 250% 250%;
+  background-position: 150% 150%;
+}
+.holo-edge {
+  padding: 1px;
+  background: radial-gradient(480px circle at var(--px) var(--py), rgb(255 255 255 / 0.5), rgb(255 255 255 / 0.08) 65%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* ReactBits Noise: a grain tile that jumps position a few times a second. */
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: 97;
+  pointer-events: none;
+  background-repeat: repeat;
+  animation: grain 0.5s steps(4) infinite;
+}
+@keyframes grain {
+  0% { background-position: 0 0; }
+  25% { background-position: -37px 21px; }
+  50% { background-position: 53px -45px; }
+  75% { background-position: -19px 61px; }
+  100% { background-position: 0 0; }
+}
+
+/* ReactBits StarBorder: lights drift along the top and bottom edges. */
+.star-border-top,
+.star-border-bottom {
+  position: absolute;
+  z-index: 0;
+  width: 300%;
+  height: 50%;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+.star-border-bottom {
+  bottom: -11px;
+  right: -250%;
+  animation-name: star-bottom;
+}
+.star-border-top {
+  top: -10px;
+  left: -250%;
+  animation-name: star-top;
+}
+@keyframes star-bottom {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-100%); opacity: 0; }
+}
+@keyframes star-top {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+.spin-slow {
+  animation: spin-slow 9s linear infinite;
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion                                                      */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot,
+  .spin-slow,
+  .shiny-text,
+  .flowing-marquee,
+  .noise,
+  .star-border-top,
+  .star-border-bottom {
+    animation: none;
+  }
+  .roll > span,
+  .link-line::after {
+    transition-duration: 0.01ms;
+  }
 }

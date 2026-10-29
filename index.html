@@ -2,9 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Dilshod Dilmurodov — Full-stack developer</title>
+    <meta
+      name="description"
+      content="Full-stack JavaScript developer and software engineering student in Tashkent. Founder of Codenerd, a 90+ member coding community."
+    />
+    <meta name="theme-color" content="#0b0b0c" />
+    <meta name="color-scheme" content="dark" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Dilshod Dilmurodov — Full-stack developer" />
+    <meta
+      property="og:description"
+      content="Full-stack JavaScript developer and software engineering student in Tashkent. Founder of Codenerd."
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dilshod Dilmurodov</title>
+    <style>
+      html { background: #0b0b0c; }
+    </style>
+    <script>
+      // Hosts (and Vite) that fall back to this page for /adminpanel: send it to the admin page itself.
+      if (location.pathname === '/adminpanel') location.replace('/adminpanel/' + location.search);
+    </script>
   </head>
   <body>
     <div id="root"></div>
