@@ -1,44 +1,17 @@
-import { useLayoutEffect, useRef, useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { SOCIALS } from '../../content/data';
 import { useLocalTime } from '../../hooks/useLocalTime';
 import DecryptedText from '../reactbits/DecryptedText';
-import VariableProximity from '../reactbits/VariableProximity';
 import LanguageSwitch from './LanguageSwitch';
 
 const external = (href: string) => (href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {});
-const WORDMARK = 'Dilshod Dilmurodov';
-/** Rest weight of the wordmark; letters swell from here toward the pointer. */
-const REST = 300;
-
-/** Font size that makes the wordmark span its box exactly, measured at the rest weight. */
-function useFitSize() {
-  const box = useRef<HTMLDivElement>(null);
-  const [size, setSize] = useState(0);
-  useLayoutEffect(() => {
-    const el = box.current;
-    const ctx = document.createElement('canvas').getContext('2d');
-    if (!el || !ctx) return;
-    const measure = () => {
-      ctx.font = `${REST} 100px "Geist Variable", sans-serif`;
-      if ('letterSpacing' in ctx) (ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing = '-5px';
-      setSize((el.clientWidth / ctx.measureText(WORDMARK).width) * 100 * 0.97);
-    };
-    const observer = new ResizeObserver(measure);
-    observer.observe(el);
-    document.fonts?.ready.then(measure);
-    return () => observer.disconnect();
-  }, []);
-  return { box, size };
-}
 
 export default function Footer() {
   const { t } = useLanguage();
   const time = useLocalTime();
-  const { box, size } = useFitSize();
 
   return (
-    <footer className="overflow-hidden bg-ink-2 px-[var(--gutter)] pt-[clamp(2rem,5vh,4rem)]">
+    <footer className="bg-ink-2 px-[var(--gutter)] py-[clamp(2rem,5vh,4rem)]">
       <div className="mx-auto flex max-w-[1400px] flex-col gap-10 sm:flex-row sm:items-end sm:justify-between">
         <div className="flex gap-[clamp(2rem,4vw,3.5rem)]">
           <div>
@@ -67,16 +40,6 @@ export default function Footer() {
           </div>
           <LanguageSwitch id="footer" />
         </div>
-      </div>
-
-      {/* Closing wordmark, cropped by the bottom edge; letters thicken toward the pointer. */}
-      <div ref={box} className="mx-auto mt-[clamp(3rem,8vh,6rem)] max-w-[1400px]">
-        <p
-          className="translate-y-[14%] whitespace-nowrap leading-[0.8] tracking-[-0.05em] text-paper"
-          style={size ? { fontSize: size } : { visibility: 'hidden' }}
-        >
-          <VariableProximity text={WORDMARK} containerRef={box} from={REST} to={850} radius={Math.max(160, size * 1.4)} />
-        </p>
       </div>
     </footer>
   );

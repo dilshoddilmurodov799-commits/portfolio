@@ -1,8 +1,8 @@
 const en = {
   meta: {
-    title: 'Dilshod Dilmurodov — Software engineer, frontend',
+    title: 'Dilshod Dilmurodov — Full-stack software engineer',
     description:
-      'Frontend-focused software engineer in Tashkent. I build fast, accessible web products with React, Next.js and TypeScript — and the APIs behind them.',
+      'Full-stack software engineer in Tashkent. I build complete web products — React & TypeScript interfaces, Node.js APIs and SQL databases.',
   },
   nav: {
     about: 'About',
@@ -15,7 +15,7 @@ const en = {
     skip: 'Skip to content',
     home: 'Dilshod Dilmurodov — back to top',
     language: 'Language',
-    role: 'Software engineer · Frontend',
+    role: 'Software engineer · Full-stack',
     homeLink: 'Home',
     navigation: 'Navigation',
     socials: 'Socials',
@@ -24,9 +24,8 @@ const en = {
   hero: {
     lines: ['I build software', '& the community', 'that builds it.'],
     intro:
-      'Frontend-focused software engineer studying Software Engineering & AI at MU University in Tashkent — and founder of Codenerd, a 90+ member coding community.',
-    pitch:
-      'I turn ideas into fast, accessible web products — polished React & TypeScript interfaces, purposeful motion, and the APIs behind them.',
+      'Full-stack software engineer studying Software Engineering & AI at MU University in Tashkent — and founder of Codenerd, a 90+ member coding community.',
+    pitchLead: 'I build web products end to end.',
     roles: ['Software engineering student', 'Founder of Codenerd', 'Mentor to 70+ students'],
     scroll: 'Scroll',
     primary: 'See my work',
@@ -34,7 +33,7 @@ const en = {
     location: 'Based in Tashkent, UZ',
     localTime: 'Local time',
     roleTop: 'Software Engineer',
-    roleBottom: 'Frontend-focused',
+    roleBottom: 'Full-stack web',
     chips: [
       { k: 'Founder', v: 'Codenerd · 90+ members' },
       { k: 'Studying', v: 'Software Engineering & AI' },
@@ -44,7 +43,7 @@ const en = {
   about: {
     label: 'About',
     statement:
-      'I’m a software engineer who specializes in the frontend. I turn ideas into fast, responsive, accessible interfaces — and connect them to the APIs and databases that make them work.',
+      'I’m a full-stack software engineer. I take web products from idea to working software — fast, accessible interfaces, the APIs and databases behind them, and everything that connects the two.',
     paragraphs: [
       'At IT Park Bukhara I built full-stack web applications with React, Next.js, Node.js and SQL inside agile teams of 3–5 developers. Today I study Software Engineering & AI at MU University in Tashkent.',
       'In 2025 I founded Codenerd, a student-run coding community. I design its structured sessions on frontend, backend and databases, and mentor students through applied project work.',
@@ -56,19 +55,19 @@ const en = {
     ],
     approach: {
       label: 'How I work',
-      heading: 'Fast. Accessible. Responsive. Maintainable.',
+      heading: 'Fast. Accessible. Secure. Maintainable.',
       principles: [
         {
           title: 'Performance first',
           text: 'Heavy pieces load only when they’re needed. On this site, the WebGL backdrop is split into its own bundle and loads only as you approach it.',
         },
         {
-          title: 'Accessible by default',
-          text: 'Semantic HTML, full keyboard support and visible focus. Every animation here respects your reduced-motion setting.',
+          title: 'Accessible on every screen',
+          text: 'Semantic HTML, keyboard support and visible focus, with interactions designed per device. Every animation here respects reduced motion.',
         },
         {
-          title: 'Every screen, by design',
-          text: 'Interactions are designed per device, not just resized — touch screens get their own behaviour where desktop relies on hover.',
+          title: 'Secure by default',
+          text: 'Secrets never reach the browser, every input is validated on the server, and abuse is rate-limited — like the contact backend behind this site.',
         },
         {
           title: 'Built to maintain',
@@ -107,25 +106,25 @@ const en = {
     present: 'Now',
     items: {
       portfolio: {
-        category: 'Frontend engineering · Design',
+        category: 'Full-stack · Design',
         title: 'This portfolio',
-        role: 'Design & development',
+        role: 'Design, frontend & backend',
         summary:
-          'A motion-rich personal site engineered like a product: fast on phones, usable from the keyboard, in three languages — with a real inbox behind its contact form.',
-        problem: 'Show real frontend craft — motion, WebGL, page transitions — without the site becoming slow, inaccessible or hard to read.',
+          'A full-stack personal site engineered like a product: a motion-rich React front end, and a serverless backend that saves messages, alerts me on Telegram and runs a password-protected inbox.',
+        problem: 'Show real full-stack craft — a polished, animated front end and a secure backend — without the site becoming slow, inaccessible or hard to read.',
         details: [
-          'Curtain transitions that announce every section and page you move to',
-          'Scroll-driven typography, parallax galleries and a WebGL backdrop',
-          'A contact form that saves messages to a database, with an inbox page to read them',
-          'Standalone certificate pages and a case study for every project',
+          'Curtain transitions, scroll-driven typography and a WebGL backdrop',
+          'A contact API that validates, rate-limits and saves every message to Postgres',
+          'Instant Telegram alerts for new messages',
+          'A password-protected admin inbox to read, archive and delete messages',
           'English, Uzbek and Russian versions',
         ],
         approach: [
+          'Secrets stay on the server: the database key, admin password and bot token never reach the browser',
+          'Admin sessions are signed, expiring HttpOnly cookies, and login attempts are rate-limited',
+          'If Telegram is down the message is still saved and flagged, so a visitor never loses one',
           'WebGL effects are code-split and mount only as their section approaches, so the first load stays light',
-          'Every animation respects reduced motion, and touch screens get their own interactions instead of hover',
           'One typed dictionary drives all three languages — a missing translation is a build error',
-          'The form talks to Supabase’s REST API directly, without an SDK, and falls back to email if saving fails',
-          'Extra pages are separate static entries, so the site runs on any static host without rewrite rules',
         ],
         outcome: '',
       },
@@ -186,8 +185,8 @@ const en = {
     capabilities: {
       frontend: { title: 'Frontend engineering', text: 'Polished, responsive, accessible interfaces in React, Next.js and TypeScript.' },
       interactive: { title: 'Interactive experiences', text: 'Motion, scroll choreography and WebGL that make a product memorable — like this site.' },
-      build: { title: 'Idea to product', text: 'Turning an idea into a working web app — interface, API and database.' },
-      fullstack: { title: 'Full-stack & automation', text: 'Connecting interfaces to Node.js APIs and SQL databases, and automating routine work with bots.' },
+      build: { title: 'Full-stack web apps', text: 'From idea to a working product — interface, API and database, built as one.' },
+      backend: { title: 'Backend & APIs', text: 'Node.js APIs, SQL databases, authentication and integrations like Telegram bots.' },
       mentoring: { title: 'Mentoring & workshops', text: 'Teaching frontend, backend and databases — 70+ students mentored.' },
     },
     intro: 'Hover, focus or tap a technology to trace its connections — and see where I’ve put it to work.',
@@ -285,7 +284,7 @@ const en = {
   contact: {
     label: 'Contact',
     lines: ['Let’s build', 'something worth', 'remembering.'],
-    intro: 'Hiring for a frontend role, or have a product in mind? Tell me about it — my inbox is open.',
+    intro: 'Hiring a full-stack developer, or have a product in mind? Tell me about it — my inbox is open.',
     glassHint: 'Move to look through the glass — click to reshape it',
     cta: 'Get in touch',
     copy: 'Copy email',
@@ -300,22 +299,23 @@ const en = {
       namePh: 'John Doe *',
       email: 'What’s your email?',
       emailPh: 'john@doe.com *',
-      org: 'What’s the name of your organization?',
-      orgPh: 'John & Doe ®',
+      subject: 'What’s it about?',
+      subjectPh: 'Website project *',
       message: 'Your message',
       messagePh: 'Hello Dilshod, can you help me with … *',
       send: 'Send it!',
       details: 'Details',
       cv: 'Curriculum vitae',
-      subject: 'New message from',
       sending: 'Sending…',
-      sent: 'Thanks — your message is on its way. I’ll get back to you soon.',
-      failed: 'Couldn’t send it here — opening your mail app instead.',
+      sent: 'Message sent successfully. I’ll get back to you soon.',
+      failed: 'Something went wrong. Please try again.',
+      invalid: 'Please check the fields and try again.',
+      limited: 'Too many messages for now. Please try again later.',
     },
     version: 'Version',
     edition: '© Edition',
   },
-  marquee: ['Software engineer', 'Frontend-focused', 'Creative developer', 'Community builder'],
+  marquee: ['Software engineer', 'Full-stack web', 'Creative developer', 'Community builder'],
   cursor: { drag: 'Drag' },
 };
 

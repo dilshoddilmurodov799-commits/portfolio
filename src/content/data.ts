@@ -57,7 +57,7 @@ export type WorkKind = (typeof WORK_KINDS)[number];
  */
 export const WORK = [
   {
-    id: 'portfolio', period: '2026', stack: ['React', 'TypeScript', 'Tailwind CSS', 'GSAP', 'Three.js', 'Supabase'],
+    id: 'portfolio', period: '2026', stack: ['React', 'TypeScript', 'Tailwind CSS', 'GSAP', 'Three.js', 'Node.js', 'Supabase', 'Telegram Bot API'],
     visual: 'portfolio', color: '#ff6a3d', kinds: ['design', 'development'], repo: `${CONTACT.github}/portfolio`,
   },
   { id: 'itpark', period: '2024 — 2025', stack: ['React', 'Next.js', 'Node.js', 'SQL'], visual: 'interface', color: '#1d2230', kinds: ['development'], repo: null },
@@ -91,14 +91,14 @@ export const SOCIALS = [
 ] as const;
 
 /**
- * What I can do for a visitor, frontend first. Each row's band lists the tools behind it;
+ * What I can do for a visitor, whole products first. Each row's band lists the tools behind it;
  * mentoring has no stack, so its band shows the localized soft skills instead.
  */
 export const CAPABILITIES = [
+  { id: 'build', stack: ['React', 'Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Git', 'GitHub'] },
   { id: 'frontend', stack: ['TypeScript', 'React', 'Next.js', 'JavaScript', 'HTML', 'CSS', 'Tailwind CSS'] },
+  { id: 'backend', stack: ['Node.js', 'REST APIs', 'SQL', 'PostgreSQL', 'MySQL', 'MongoDB', 'Supabase', 'Python', 'Telegram Bot API'] },
   { id: 'interactive', stack: ['GSAP', 'Three.js', 'WebGL', 'Motion', 'Lenis'] },
-  { id: 'build', stack: ['React', 'Next.js', 'Node.js', 'SQL', 'Git', 'GitHub'] },
-  { id: 'fullstack', stack: ['Node.js', 'REST APIs', 'SQL', 'MySQL', 'MongoDB', 'Supabase', 'Python', 'Telegram Bot API'] },
   { id: 'mentoring' },
 ] as const;
 

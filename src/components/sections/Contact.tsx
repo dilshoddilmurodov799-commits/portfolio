@@ -8,7 +8,8 @@ import { CONTACT, CV_URL } from '../../content/data';
 import { gsap } from '../../lib/gsap';
 import { onOpenContactForm } from '../../lib/contactForm';
 import { EASE_EXPO } from '../../lib/motion';
-import { messagesEnabled, sendMessage } from '../../lib/messages';
+import { sendMessage } from '../../lib/messages';
+import type { SendResult } from '../../lib/messages';
 import { useFinePointer, useReducedMotion } from '../../hooks/useMediaQuery';
 import { useSmoothScroll } from '../../providers/SmoothScroll';
 import RoundButton from '../ui/RoundButton';
@@ -32,90 +33,116 @@ const input =
 function ContactForm() {
   const { t } = useLanguage();
   const f = t.contact.form;
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'failed'>('idle');
+  const [status, setStatus] = useState<'idle' | 'sending' | SendResult>('idle');
+  const sending = status === 'sending';
+  // When the form appeared: a submission seconds later can only come from a bot.
+  const shownAt = useRef(0);
+  useEffect(() => {
+    shownAt.current = Date.now();
+  }, []);
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (status === 'sending') return;
+    if (sending) return;
     const form = e.currentTarget;
     const data = new FormData(form);
     const get = (key: string) => String(data.get(key) ?? '').trim();
-    const msg = { name: get('name'), email: get('email'), org: get('org') || null, message: get('message') };
-
-    // Without a message store (or if saving fails) the form composes an email in the visitor's own mail app.
-    const mailto = () => {
-      const body = [msg.message, '', `— ${msg.name}`, msg.email, msg.org].filter((line, i) => i < 2 || line).join('\n');
-      window.location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(`${f.subject} ${msg.name}`)}&body=${encodeURIComponent(body)}`;
-    };
-    if (!messagesEnabled) return mailto();
 
     setStatus('sending');
-    try {
-      await sendMessage(msg);
-      form.reset();
-      setStatus('sent');
-    } catch {
-      setStatus('failed');
-      mailto();
-    }
+    const result = await sendMessage({
+      name: get('name'),
+      email: get('email'),
+      subject: get('subject'),
+      message: get('message'),
+      website: get('website'),
+      elapsed: Date.now() - shownAt.current,
+    });
+    if (result === 'sent') form.reset();
+    setStatus(result);
   };
 
+  // Lengths match the server's limits (server/validation.ts), which have the final say.
   const fields = [
-    { name: 'name', label: f.name, placeholder: f.namePh, type: 'text', required: true, autoComplete: 'name' },
-    { name: 'email', label: f.email, placeholder: f.emailPh, type: 'email', required: true, autoComplete: 'email' },
-    { name: 'org', label: f.org, placeholder: f.orgPh, type: 'text', required: false, autoComplete: 'organization' },
-    { name: 'message', label: f.message, placeholder: f.messagePh, type: 'textarea', required: true, autoComplete: 'off' },
+    { name: 'name', label: f.name, placeholder: f.namePh, type: 'text', maxLength: 100, autoComplete: 'name' },
+    { name: 'email', label: f.email, placeholder: f.emailPh, type: 'email', maxLength: 254, autoComplete: 'email' },
+    { name: 'subject', label: f.subject, placeholder: f.subjectPh, type: 'text', maxLength: 150, autoComplete: 'off' },
+    { name: 'message', label: f.message, placeholder: f.messagePh, type: 'textarea', maxLength: 5000, autoComplete: 'off' },
   ];
+  const note = { idle: null, sending: null, sent: f.sent, invalid: f.invalid, limited: f.limited, failed: f.failed }[status];
 
   return (
     <motion.form
       id="contact-form"
       onSubmit={submit}
+      aria-busy={sending}
       initial="hidden"
       animate="shown"
       transition={{ staggerChildren: 0.07 }}
       className="lg:col-span-8"
     >
-      {fields.map((field, i) => (
-        <motion.div
-          key={field.name}
-          variants={row}
-          className="grid grid-cols-[2.5rem_1fr] gap-x-4 border-t border-line py-[clamp(1.75rem,3.5vw,2.75rem)] transition-colors focus-within:border-fg sm:grid-cols-[4.5rem_1fr]"
-        >
-          <span className="pt-1.5 text-sm text-fg-3 tabular">0{i + 1}</span>
-          <div>
-            <label htmlFor={`cf-${field.name}`} className="block text-[clamp(1.3rem,2vw,1.75rem)] tracking-[-0.02em]">
-              {field.label}
-            </label>
-            {field.type === 'textarea' ? (
-              <textarea id={`cf-${field.name}`} name={field.name} rows={4} required placeholder={field.placeholder} className={input} />
+      {/* Honeypot: off-screen and skipped by keyboard and screen readers, so only bots fill it in. */}
+      <div aria-hidden="true" className="absolute -left-[9999px] size-px overflow-hidden">
+        <label htmlFor="cf-website">Website</label>
+        <input id="cf-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+      <fieldset disabled={sending} className="contents">
+        {fields.map((field, i) => (
+          <motion.div
+            key={field.name}
+            variants={row}
+            className="grid grid-cols-[2.5rem_1fr] gap-x-4 border-t border-line py-[clamp(1.75rem,3.5vw,2.75rem)] transition-colors focus-within:border-fg sm:grid-cols-[4.5rem_1fr]"
+          >
+            <span className="pt-1.5 text-sm text-fg-3 tabular">0{i + 1}</span>
+            <div>
+              <label htmlFor={`cf-${field.name}`} className="block text-[clamp(1.3rem,2vw,1.75rem)] tracking-[-0.02em]">
+                {field.label}
+              </label>
+              {field.type === 'textarea' ? (
+                <textarea
+                  id={`cf-${field.name}`}
+                  name={field.name}
+                  rows={4}
+                  required
+                  maxLength={field.maxLength}
+                  placeholder={field.placeholder}
+                  className={`${input} disabled:opacity-60`}
+                />
+              ) : (
+                <input
+                  id={`cf-${field.name}`}
+                  name={field.name}
+                  type={field.type}
+                  required
+                  maxLength={field.maxLength}
+                  autoComplete={field.autoComplete}
+                  placeholder={field.placeholder}
+                  className={`${input} disabled:opacity-60`}
+                />
+              )}
+            </div>
+          </motion.div>
+        ))}
+        <motion.div variants={row} className="relative h-[clamp(5rem,7vw,6rem)] border-t border-line">
+          <p role="status" aria-live="polite" className={`max-w-[45%] pt-6 text-[15px] leading-relaxed ${status === 'sent' ? 'text-fg-2' : 'text-accent'}`}>
+            {note}
+          </p>
+          <RoundButton
+            type="submit"
+            fill="var(--color-paper)"
+            wrapperClassName="absolute right-[clamp(0rem,8vw,8rem)] top-0 -translate-y-1/2"
+            className="size-[clamp(8rem,11vw,10rem)] bg-accent text-[15px] font-medium text-ink"
+          >
+            {sending ? (
+              <span className="flex items-center gap-2">
+                <span aria-hidden="true" className="size-3.5 animate-spin rounded-full border-2 border-ink/30 border-t-ink" />
+                {f.sending}
+              </span>
             ) : (
-              <input
-                id={`cf-${field.name}`}
-                name={field.name}
-                type={field.type}
-                required={field.required}
-                autoComplete={field.autoComplete}
-                placeholder={field.placeholder}
-                className={input}
-              />
+              f.send
             )}
-          </div>
+          </RoundButton>
         </motion.div>
-      ))}
-      <motion.div variants={row} className="relative h-[clamp(5rem,7vw,6rem)] border-t border-line">
-        <p role="status" aria-live="polite" className="max-w-[45%] pt-6 text-[15px] leading-relaxed text-fg-2">
-          {status === 'sent' ? f.sent : status === 'failed' ? f.failed : null}
-        </p>
-        <RoundButton
-          type="submit"
-          fill="var(--color-paper)"
-          wrapperClassName="absolute right-[clamp(0rem,8vw,8rem)] top-0 -translate-y-1/2"
-          className="size-[clamp(8rem,11vw,10rem)] bg-accent text-[15px] font-medium text-ink"
-        >
-          {status === 'sending' ? f.sending : f.send}
-        </RoundButton>
-      </motion.div>
+      </fieldset>
     </motion.form>
   );
 }

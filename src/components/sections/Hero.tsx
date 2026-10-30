@@ -45,9 +45,10 @@ function Actions({ className }: { className?: string }) {
         <AnchorLink
           to="work"
           curtain
-          className="flex items-center rounded-full border border-fg-3 px-6 py-3.5 text-[15px] transition-colors duration-300 hover:border-fg"
+          className="group flex items-center gap-2 rounded-full border border-fg-3 px-6 py-3.5 text-[15px] transition-colors duration-300 hover:border-fg hover:bg-white/[0.05]"
         >
           <RollText>{t.hero.primary}</RollText>
+          <ArrowDown aria-hidden="true" strokeWidth={2} className="size-4 transition-transform duration-500 ease-[var(--ease-expo)] group-hover:translate-y-0.5" />
         </AnchorLink>
       </Magnetic>
     </div>
@@ -108,7 +109,7 @@ export default function Hero({ ready }: { ready: boolean }) {
   }, [reduced]);
 
   return (
-    <section id="home" ref={root} aria-labelledby="hero-title" className="relative h-[100svh] min-h-[560px] overflow-hidden bg-[linear-gradient(to_bottom,#2c2c30,#1c1c1f_55%,var(--color-ink))]">
+    <section id="home" ref={root} aria-labelledby="hero-title" className="relative h-[100svh] min-h-[560px] overflow-hidden [--band-bottom:clamp(1.5rem,7svh,4.5rem)] [--band-size:clamp(5.5rem,15.5vw,15rem)] bg-[linear-gradient(to_bottom,#2c2c30,#1c1c1f_55%,var(--color-ink))]">
       <h1 id="hero-title" className="sr-only">
         {NAME} — {t.nav.role}
       </h1>
@@ -139,16 +140,17 @@ export default function Hero({ ready }: { ready: boolean }) {
       {/* Below lg the portrait runs behind the copy: darken its lower half so the text stays readable. */}
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[65%] bg-gradient-to-t from-ink from-35% to-transparent lg:hidden" />
 
-      {/* What I build, the ways in, and where I am */}
-      <div data-intro="" className="absolute left-[var(--gutter)] top-[30%] hidden w-[min(25rem,30vw)] lg:block">
-        <p className="text-[clamp(1rem,1.15vw,1.15rem)] leading-relaxed text-fg-2">{t.hero.pitch}</p>
-        <Actions className="mt-8" />
-        {/* Short screens need the room for the name band; the same facts sit in the contact details. */}
-        <p className="mt-8 text-sm leading-relaxed text-fg-3 tabular [@media(max-height:820px)]:hidden">
-          {t.hero.location}
-          <br />
-          {t.hero.localTime} — {time} GMT+5
+      {/* Where I am, what I build, and the ways in: anchored just above the name band, so the two never meet. */}
+      <div
+        data-intro=""
+        className="absolute bottom-[calc(var(--band-bottom)_+_var(--band-size)*1.1_+_2.5rem)] left-[var(--gutter)] hidden w-[min(26rem,34vw)] lg:block"
+      >
+        <p className="label flex items-center gap-2.5 tabular">
+          <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-accent" />
+          {t.hero.location} · {time} GMT+5
         </p>
+        <p className="mt-5 text-balance text-[clamp(1.5rem,2.1vw,2.1rem)] leading-[1.12] tracking-[-0.03em]">{t.hero.pitchLead}</p>
+        <Actions className="mt-8" />
       </div>
 
       {/* Role — on smaller screens it carries the pitch and the ways in too */}
@@ -173,16 +175,16 @@ export default function Hero({ ready }: { ready: boolean }) {
           <span className="block text-fg-2">{t.hero.roleBottom}</span>
         </p>
         <div className="lg:hidden">
-          {/* On short phones the pitch would cover the face; About opens with the same message right below. */}
-          <p className="mt-4 max-w-[30rem] text-[15px] leading-relaxed text-fg-2 [@media(max-height:700px)]:hidden">{t.hero.pitch}</p>
+          {/* On short phones the line would cover the face; About opens with the same message right below. */}
+          <p className="mt-4 text-[15px] leading-relaxed text-fg-2 [@media(max-height:700px)]:hidden">{t.hero.pitchLead}</p>
           <Actions className="mt-6" />
         </div>
       </div>
 
       {/* Name band */}
-      <div aria-hidden="true" className="absolute inset-x-0 bottom-[clamp(1.5rem,7svh,4.5rem)] overflow-hidden">
+      <div aria-hidden="true" className="absolute inset-x-0 bottom-[var(--band-bottom)] overflow-hidden">
         <div data-band="">
-          <div data-track="" className="relative w-max whitespace-nowrap text-[clamp(5.5rem,15.5vw,15rem)] font-medium leading-[1.1] tracking-[-0.035em]">
+          <div data-track="" className="relative w-max whitespace-nowrap text-[length:var(--band-size)] font-medium leading-[1.1] tracking-[-0.035em]">
             <BandCopy />
             <BandCopy absolute />
           </div>

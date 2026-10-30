@@ -2,9 +2,9 @@ import type { Dict } from './en';
 
 const uz: Dict = {
   meta: {
-    title: 'Dilshod Dilmurodov — dasturiy injener, frontend',
+    title: 'Dilshod Dilmurodov — full-stack dasturiy injener',
     description:
-      'Toshkentlik, frontendga ixtisoslashgan dasturiy injener. React, Next.js va TypeScript yordamida tez va qulay veb-mahsulotlar — hamda ular tayanadigan API’lar yarataman.',
+      'Toshkentlik full-stack dasturiy injener. Veb-mahsulotlarni to‘liq yarataman — React va TypeScript interfeyslari, Node.js API’lari va SQL ma’lumotlar bazalari.',
   },
   nav: {
     about: 'Men haqimda',
@@ -17,7 +17,7 @@ const uz: Dict = {
     skip: 'Asosiy qismga o‘tish',
     home: 'Dilshod Dilmurodov — yuqoriga',
     language: 'Til',
-    role: 'Dasturiy injener · Frontend',
+    role: 'Dasturiy injener · Full-stack',
     homeLink: 'Bosh sahifa',
     navigation: 'Navigatsiya',
     socials: 'Ijtimoiy tarmoqlar',
@@ -26,9 +26,8 @@ const uz: Dict = {
   hero: {
     lines: ['Dasturlar yarataman', '— va ularni yozuvchi', 'hamjamiyatni.'],
     intro:
-      'Toshkentdagi MU Universityda dasturiy injiniring va sun’iy intellektni o‘rganayotgan, frontendga ixtisoslashgan dasturiy injener. 90+ a’zoli Codenerd dasturlash hamjamiyati asoschisi.',
-    pitch:
-      'G‘oyalarni tez va hamma uchun qulay veb-mahsulotlarga aylantiraman — puxta React va TypeScript interfeyslari, maqsadli animatsiya va ularning ortidagi API’lar.',
+      'Toshkentdagi MU Universityda dasturiy injiniring va sun’iy intellektni o‘rganayotgan full-stack dasturiy injener. 90+ a’zoli Codenerd dasturlash hamjamiyati asoschisi.',
+    pitchLead: 'Veb-mahsulotlarni boshidan oxirigacha yarataman.',
     roles: ['Dasturiy injiniring talabasi', 'Codenerd asoschisi', '70+ talabaning ustozi'],
     scroll: 'Pastga',
     primary: 'Loyihalarni ko‘rish',
@@ -36,7 +35,7 @@ const uz: Dict = {
     location: 'Toshkent, O‘zbekiston',
     localTime: 'Mahalliy vaqt',
     roleTop: 'Dasturiy injener',
-    roleBottom: 'Frontend yo‘nalishida',
+    roleBottom: 'Full-stack veb',
     chips: [
       { k: 'Asoschi', v: 'Codenerd · 90+ a’zo' },
       { k: 'Ta’lim', v: 'Dasturiy injiniring va SI' },
@@ -46,7 +45,7 @@ const uz: Dict = {
   about: {
     label: 'Men haqimda',
     statement:
-      'Men frontendga ixtisoslashgan dasturiy injenerman. G‘oyalarni tez, moslashuvchan va hamma uchun qulay interfeyslarga aylantiraman — va ularni ishlatadigan API hamda ma’lumotlar bazalariga ulayman.',
+      'Men full-stack dasturiy injenerman. Veb-mahsulotlarni g‘oyadan ishlaydigan dasturgacha olib boraman — tez va qulay interfeyslar, ularning ortidagi API va ma’lumotlar bazalari hamda ikkalasini bog‘laydigan hamma narsa.',
     paragraphs: [
       'IT Park Buxoroda 3–5 nafar dasturchidan iborat agile jamoalarda React, Next.js, Node.js va SQL yordamida full-stack veb-ilovalar yaratdim. Hozir Toshkentdagi MU Universityda dasturiy injiniring va sun’iy intellektni o‘rganyapman.',
       '2025-yilda talabalar dasturlash hamjamiyati — Codenerdga asos soldim. Frontend, backend va ma’lumotlar bazalari bo‘yicha tizimli mashg‘ulotlarni ishlab chiqaman va talabalarga amaliy loyihalarda ustozlik qilaman.',
@@ -58,19 +57,19 @@ const uz: Dict = {
     ],
     approach: {
       label: 'Qanday ishlayman',
-      heading: 'Tez. Qulay. Moslashuvchan. Barqaror.',
+      heading: 'Tez. Qulay. Xavfsiz. Barqaror.',
       principles: [
         {
           title: 'Avvalo tezlik',
           text: 'Og‘ir qismlar faqat kerak bo‘lganda yuklanadi. Bu saytda WebGL fon alohida bundle’ga ajratilgan va siz unga yaqinlashgandagina yuklanadi.',
         },
         {
-          title: 'Hamma uchun qulay',
-          text: 'Semantik HTML, to‘liq klaviatura boshqaruvi va ko‘rinadigan fokus. Bu yerdagi har bir animatsiya «harakatni kamaytirish» sozlamangizni hisobga oladi.',
+          title: 'Har bir ekranda qulay',
+          text: 'Semantik HTML, klaviatura boshqaruvi va ko‘rinadigan fokus, o‘zaro ta’sirlar esa har bir qurilma uchun loyihalanadi. Har bir animatsiya «harakatni kamaytirish»ni hisobga oladi.',
         },
         {
-          title: 'Har bir ekran uchun',
-          text: 'O‘zaro ta’sirlar shunchaki kichraytirilmaydi, har bir qurilma uchun loyihalanadi — desktopda hover bo‘lgan joyda sensorli ekranlarning o‘z xatti-harakati bor.',
+          title: 'Xavfsizlik birinchi',
+          text: 'Maxfiy kalitlar brauzerga chiqmaydi, har bir kiritma serverda tekshiriladi, suiiste’mol esa chastota bo‘yicha cheklanadi — xuddi shu saytdagi aloqa backendidagidek.',
         },
         {
           title: 'Qo‘llab-quvvatlash oson',
@@ -109,25 +108,25 @@ const uz: Dict = {
     present: 'hozir',
     items: {
       portfolio: {
-        category: 'Frontend · Dizayn',
+        category: 'Full-stack · Dizayn',
         title: 'Ushbu portfolio',
-        role: 'Dizayn va dasturlash',
+        role: 'Dizayn, frontend va backend',
         summary:
-          'Mahsulot kabi qurilgan, animatsiyaga boy shaxsiy sayt: telefonda tez, klaviatura bilan qulay, uch tilda — aloqa formasi ortida esa haqiqiy pochta qutisi.',
-        problem: 'Frontend mahoratini — animatsiya, WebGL, sahifalararo o‘tishlarni — saytni sekin, noqulay yoki o‘qish qiyin qilmasdan ko‘rsatish.',
+          'Mahsulot kabi qurilgan full-stack shaxsiy sayt: animatsiyaga boy React frontend hamda xabarlarni saqlaydigan, Telegram’ga bildirishnoma yuboradigan va parol bilan himoyalangan pochta qutisini boshqaradigan serverless backend.',
+        problem: 'Haqiqiy full-stack mahoratini — puxta, animatsiyali frontend va xavfsiz backendni — saytni sekin, noqulay yoki o‘qish qiyin qilmasdan ko‘rsatish.',
         details: [
-          'Har bir bo‘lim va sahifani e’lon qiluvchi parda o‘tishlari',
-          'Skrollga bog‘langan tipografiya, parallaks galereyalar va WebGL fon',
-          'Xabarlarni ma’lumotlar bazasiga saqlaydigan aloqa formasi va ularni o‘qish sahifasi',
-          'Alohida sertifikat sahifalari va har bir loyiha uchun keys',
+          'Parda o‘tishlari, skrollga bog‘langan tipografiya va WebGL fon',
+          'Har bir xabarni tekshiradigan, chastotasini cheklaydigan va Postgres’ga saqlaydigan aloqa API’si',
+          'Yangi xabarlar haqida Telegram’da darhol bildirishnoma',
+          'Xabarlarni o‘qish, arxivlash va o‘chirish uchun parol bilan himoyalangan admin panel',
           'Ingliz, o‘zbek va rus tillaridagi versiyalar',
         ],
         approach: [
+          'Maxfiy ma’lumotlar serverda qoladi: ma’lumotlar bazasi kaliti, admin paroli va bot tokeni hech qachon brauzerga chiqmaydi',
+          'Admin sessiyalari — imzolangan, muddati cheklangan HttpOnly cookie’lar, kirish urinishlari esa chastota bo‘yicha cheklangan',
+          'Telegram ishlamasa ham xabar saqlanadi va belgilanadi — tashrif buyuruvchi hech narsani yo‘qotmaydi',
           'WebGL effektlari alohida bundle’larga ajratilgan va faqat o‘z bo‘limi yaqinlashganda ulanadi — birinchi yuklanish yengil qoladi',
-          'Har bir animatsiya reduced motion’ni hisobga oladi, sensorli ekranlar esa hover o‘rniga o‘z o‘zaro ta’sirlariga ega',
           'Uch tilni bitta tiplangan lug‘at boshqaradi — tushib qolgan tarjima build xatosiga aylanadi',
-          'Forma Supabase REST API’siga SDK’siz to‘g‘ridan-to‘g‘ri murojaat qiladi va saqlab bo‘lmasa emailga o‘tadi',
-          'Qo‘shimcha sahifalar alohida statik kirish nuqtalari — sayt istalgan statik hostingda rewrite qoidalarisiz ishlaydi',
         ],
         outcome: '',
       },
@@ -188,8 +187,8 @@ const uz: Dict = {
     capabilities: {
       frontend: { title: 'Frontend dasturlash', text: 'React, Next.js va TypeScript’da puxta, moslashuvchan va hamma uchun qulay interfeyslar.' },
       interactive: { title: 'Interaktiv tajribalar', text: 'Mahsulotni esda qolarli qiladigan animatsiya, skroll ssenariylari va WebGL — xuddi shu saytdagidek.' },
-      build: { title: 'G‘oyadan mahsulotgacha', text: 'G‘oyangizni ishlaydigan veb-ilovaga aylantiraman — interfeys, API va ma’lumotlar bazasi.' },
-      fullstack: { title: 'Full-stack va avtomatlashtirish', text: 'Interfeyslarni Node.js API va SQL bazalariga ulayman, kundalik ishlarni botlar bilan avtomatlashtiraman.' },
+      build: { title: 'Full-stack veb-ilovalar', text: 'G‘oyadan ishlaydigan mahsulotgacha — interfeys, API va ma’lumotlar bazasi yagona tizim sifatida.' },
+      backend: { title: 'Backend va API', text: 'Node.js API’lari, SQL ma’lumotlar bazalari, avtorizatsiya va Telegram botlar kabi integratsiyalar.' },
       mentoring: { title: 'Mentorlik va seminarlar', text: 'Frontend, backend va ma’lumotlar bazalarini o‘rgataman — 70+ talabaga ustozlik qilganman.' },
     },
     intro: 'Texnologiya bog‘lanishlarini va uni qayerda qo‘llaganimni ko‘rish uchun ustiga olib boring, tanlang yoki bosing.',
@@ -287,7 +286,7 @@ const uz: Dict = {
   contact: {
     label: 'Aloqa',
     lines: ['Keling, yodda', 'qoladigan narsa', 'yarataylik.'],
-    intro: 'Frontend dasturchi qidiryapsizmi yoki mahsulot g‘oyangiz bormi? Batafsil yozing — xabaringizni kutaman.',
+    intro: 'Full-stack dasturchi qidiryapsizmi yoki mahsulot g‘oyangiz bormi? Batafsil yozing — xabaringizni kutaman.',
     glassHint: 'Shisha orqali qarash uchun kursorni yuring — shaklini o‘zgartirish uchun bosing',
     cta: 'Bog‘lanish',
     copy: 'Emailni nusxalash',
@@ -302,22 +301,23 @@ const uz: Dict = {
       namePh: 'Ism Familiya *',
       email: 'Emailingiz qanday?',
       emailPh: 'ism@pochta.uz *',
-      org: 'Tashkilotingiz nomi qanday?',
-      orgPh: 'Kompaniya nomi',
+      subject: 'Nima haqida?',
+      subjectPh: 'Veb-sayt loyihasi *',
       message: 'Xabaringiz',
       messagePh: 'Salom Dilshod, menga … bo‘yicha yordam bera olasizmi? *',
       send: 'Yuborish!',
       details: 'Ma’lumotlar',
       cv: 'Rezyume',
-      subject: 'Yangi xabar:',
       sending: 'Yuborilmoqda…',
-      sent: 'Rahmat — xabaringiz yuborildi. Tez orada javob beraman.',
-      failed: 'Bu yerdan yuborib bo‘lmadi — pochta ilovangiz ochilmoqda.',
+      sent: 'Xabar muvaffaqiyatli yuborildi. Tez orada javob beraman.',
+      failed: 'Nimadir xato ketdi. Iltimos, qaytadan urinib ko‘ring.',
+      invalid: 'Iltimos, maydonlarni tekshirib, qayta urinib ko‘ring.',
+      limited: 'Hozircha xabarlar juda ko‘p. Birozdan so‘ng qayta urinib ko‘ring.',
     },
     version: 'Versiya',
     edition: '© Nashr',
   },
-  marquee: ['Dasturiy injener', 'Frontend yo‘nalishi', 'Kreativ dasturchi', 'Hamjamiyat quruvchisi'],
+  marquee: ['Dasturiy injener', 'Full-stack veb', 'Kreativ dasturchi', 'Hamjamiyat quruvchisi'],
   cursor: { drag: 'Torting' },
 };
 
