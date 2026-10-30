@@ -2,8 +2,10 @@ import { useLayoutEffect, useRef } from 'react';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { gsap } from '../../lib/gsap';
+import { openContactForm } from '../../lib/contactForm';
 import { useReducedMotion } from '../../hooks/useMediaQuery';
 import { useLocalTime } from '../../hooks/useLocalTime';
+import { cx } from '../../lib/cx';
 import AnchorLink from '../ui/AnchorLink';
 import Asterisk from '../ui/Asterisk';
 import Magnetic from '../ui/Magnetic';
@@ -20,6 +22,35 @@ function BandCopy({ absolute }: { absolute?: boolean }) {
       {NAME}
       <Asterisk className="spin-slow mx-[0.28em] size-[0.5em] shrink-0 text-accent" />
     </p>
+  );
+}
+
+/** The two ways onward: straight to a conversation, or to the proof first. */
+function Actions({ className }: { className?: string }) {
+  const { t } = useLanguage();
+  return (
+    <div className={cx('flex flex-wrap items-center gap-3', className)}>
+      <Magnetic>
+        <AnchorLink
+          to="contact"
+          curtain
+          onNavigate={openContactForm}
+          className="group flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-[15px] font-medium text-ink transition-colors duration-300 hover:bg-paper"
+        >
+          <RollText>{t.contact.cta}</RollText>
+          <ArrowUpRight aria-hidden="true" strokeWidth={2} className="size-4 transition-transform duration-500 ease-[var(--ease-expo)] group-hover:rotate-45" />
+        </AnchorLink>
+      </Magnetic>
+      <Magnetic>
+        <AnchorLink
+          to="work"
+          curtain
+          className="flex items-center rounded-full border border-fg-3 px-6 py-3.5 text-[15px] transition-colors duration-300 hover:border-fg"
+        >
+          <RollText>{t.hero.primary}</RollText>
+        </AnchorLink>
+      </Magnetic>
+    </div>
   );
 }
 
@@ -77,7 +108,7 @@ export default function Hero({ ready }: { ready: boolean }) {
   }, [reduced]);
 
   return (
-    <section id="home" ref={root} aria-labelledby="hero-title" className="relative h-[100svh] min-h-[560px] overflow-hidden bg-ink">
+    <section id="home" ref={root} aria-labelledby="hero-title" className="relative h-[100svh] min-h-[560px] overflow-hidden bg-[linear-gradient(to_bottom,#2c2c30,#1c1c1f_55%,var(--color-ink))]">
       <h1 id="hero-title" className="sr-only">
         {NAME} — {t.nav.role}
       </h1>
@@ -105,31 +136,30 @@ export default function Hero({ ready }: { ready: boolean }) {
         </div>
       </div>
 
-      {/* Location, local time and the way in */}
-      <div data-intro="" className="absolute left-[var(--gutter)] top-[40%] hidden md:block">
-        <p className="text-sm leading-relaxed text-fg-3 tabular">
+      {/* Below lg the portrait runs behind the copy: darken its lower half so the text stays readable. */}
+      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[65%] bg-gradient-to-t from-ink from-35% to-transparent lg:hidden" />
+
+      {/* What I build, the ways in, and where I am */}
+      <div data-intro="" className="absolute left-[var(--gutter)] top-[30%] hidden w-[min(25rem,30vw)] lg:block">
+        <p className="text-[clamp(1rem,1.15vw,1.15rem)] leading-relaxed text-fg-2">{t.hero.pitch}</p>
+        <Actions className="mt-8" />
+        {/* Short screens need the room for the name band; the same facts sit in the contact details. */}
+        <p className="mt-8 text-sm leading-relaxed text-fg-3 tabular [@media(max-height:820px)]:hidden">
           {t.hero.location}
           <br />
           {t.hero.localTime} — {time} GMT+5
         </p>
-        <Magnetic className="mt-6">
-          <AnchorLink
-            to="contact"
-            curtain
-            className="group flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-[15px] font-medium text-ink transition-colors duration-300 hover:bg-paper"
-          >
-            <RollText>{t.contact.cta}</RollText>
-            <ArrowUpRight aria-hidden="true" strokeWidth={2} className="size-4 transition-transform duration-500 ease-[var(--ease-expo)] group-hover:rotate-45" />
-          </AnchorLink>
-        </Magnetic>
       </div>
 
-      {/* Role */}
-      <div data-intro="" className="absolute bottom-[clamp(9rem,27svh,15rem)] left-[var(--gutter)] md:bottom-auto md:left-auto md:right-[var(--gutter)] md:top-[38%]">
+      {/* Role — on smaller screens it carries the pitch and the ways in too */}
+      <div
+        data-intro=""
+        className="absolute bottom-[clamp(9.5rem,24svh,15rem)] left-[var(--gutter)] right-[var(--gutter)] lg:bottom-auto lg:left-auto lg:top-[38%] lg:w-auto"
+      >
         <AnchorLink
           to="about"
           aria-label={t.hero.scroll}
-          className="group relative mb-[clamp(1.25rem,4vh,3rem)] grid size-[clamp(6rem,8vw,8rem)] place-items-center"
+          className="group relative mb-[clamp(1.25rem,4vh,3rem)] hidden size-[clamp(6rem,8vw,8rem)] place-items-center lg:grid"
         >
           <CircularText text={`${t.nav.role.toUpperCase()} • `} className="absolute inset-0 text-[clamp(0.6rem,0.75vw,0.72rem)] font-medium tracking-[0.12em]" />
           <ArrowDown
@@ -140,8 +170,13 @@ export default function Hero({ ready }: { ready: boolean }) {
         </AnchorLink>
         <p className="text-[clamp(1.75rem,2.9vw,2.75rem)] leading-[1.12] tracking-[-0.025em]">
           <span className="block">{t.hero.roleTop}</span>
-          <span className="block">{t.hero.roleBottom}</span>
+          <span className="block text-fg-2">{t.hero.roleBottom}</span>
         </p>
+        <div className="lg:hidden">
+          {/* On short phones the pitch would cover the face; About opens with the same message right below. */}
+          <p className="mt-4 max-w-[30rem] text-[15px] leading-relaxed text-fg-2 [@media(max-height:700px)]:hidden">{t.hero.pitch}</p>
+          <Actions className="mt-6" />
+        </div>
       </div>
 
       {/* Name band */}

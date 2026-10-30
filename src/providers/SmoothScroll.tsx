@@ -44,6 +44,8 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     const el = typeof target === 'string' ? document.querySelector<HTMLElement>(target) : target;
     const lenis = lenisRef.current;
     if (lenis && el != null) {
+      // Lenis re-measures the page a moment after its height changes; measure now so new content is reachable.
+      lenis.resize();
       lenis.scrollTo(el, { offset: options.offset ?? 0, immediate: options.immediate, duration: 1.6, easing: easeInOutExpo, force: true });
       return;
     }

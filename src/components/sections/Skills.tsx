@@ -1,19 +1,13 @@
 import { useRef } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { SKILLS } from '../../content/data';
-import type { SkillGroup } from '../../content/data';
+import { CAPABILITIES } from '../../content/data';
 import { useFinePointer, useReducedMotion } from '../../hooks/useMediaQuery';
 import { FadeIn } from '../ui/Reveal';
 import FlowingMenu from '../reactbits/FlowingMenu';
 import LetterGlitch from '../reactbits/LetterGlitch';
 import VariableProximity from '../reactbits/VariableProximity';
 
-const GROUPS: SkillGroup[] = ['frontend', 'backend', 'data', 'workflow'];
-
 const pill = 'rounded-full border border-line px-4 py-2 text-sm transition-colors duration-300 hover:border-accent hover:bg-accent hover:text-ink';
-
-/** "JavaScript, HTML, CSS +5" */
-const summarize = (labels: string[]) => labels.slice(0, 3).join(', ') + (labels.length > 3 ? ` +${labels.length - 3}` : '');
 
 export default function Skills() {
   const { t } = useLanguage();
@@ -21,17 +15,14 @@ export default function Skills() {
   const reduced = useReducedMotion();
   const head = useRef<HTMLElement>(null);
 
-  const rows = [
-    ...GROUPS.map((group) => ({
-      id: group,
-      title: t.skills.groups[group],
-      items: SKILLS.filter((s) => s.group === group).map((s) => ({
-        label: s.label,
-        note: s.evidence.length ? s.evidence.map((e) => t.skills.evidence[e]).join(' · ') : t.skills.toolkit,
-      })),
-    })),
-    { id: 'beyond', title: t.skills.beyond, items: t.skills.soft.map((label) => ({ label, note: undefined })) },
-  ].map((row, i) => ({ ...row, index: `0${i + 1}` }));
+  // Each row says what I do for you; its band carries the tools behind it.
+  const rows = CAPABILITIES.map((capability, i) => ({
+    id: capability.id,
+    index: `0${i + 1}`,
+    title: t.skills.capabilities[capability.id].title,
+    meta: t.skills.capabilities[capability.id].text,
+    items: 'stack' in capability ? [...capability.stack] : t.skills.soft,
+  }));
 
   return (
     <section id="skills" aria-labelledby="skills-title" className="px-[var(--gutter)] py-[clamp(6rem,14vh,10rem)]">
@@ -50,16 +41,7 @@ export default function Skills() {
           {fine || !reduced ? (
             // Hover a row: its stack flows past on an orange band. Touch screens can't hover, so there
             // the rows take turns on their own; with reduced motion they get the static list instead.
-            <FlowingMenu
-              auto={!fine}
-              items={rows.map((row) => ({
-                id: row.id,
-                index: row.index,
-                title: row.title,
-                meta: summarize(row.items.map((item) => item.label)),
-                items: row.items.map((item) => item.label),
-              }))}
-            />
+            <FlowingMenu auto={!fine} items={rows} />
           ) : (
             <ul className="border-b border-line">
               {rows.map((row) => (
@@ -68,10 +50,11 @@ export default function Skills() {
                     <span className="text-sm text-fg-3 tabular">{row.index}</span>
                     <h3 className="text-[clamp(2rem,4vw,3.75rem)] leading-none tracking-[-0.04em]">{row.title}</h3>
                   </div>
+                  <p className="max-w-xl text-[15px] leading-relaxed text-fg-2">{row.meta}</p>
                   <ul className="flex flex-wrap gap-2">
-                    {row.items.map((item) => (
-                      <li key={item.label} title={item.note} className={pill}>
-                        {item.label}
+                    {row.items.map((label) => (
+                      <li key={label} className={pill}>
+                        {label}
                       </li>
                     ))}
                   </ul>

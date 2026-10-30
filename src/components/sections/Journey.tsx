@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { MILESTONES } from '../../content/data';
+import { MILESTONES, STATS } from '../../content/data';
 import { certificateAt, describeCertificate } from '../../content/certificates';
 import type { MilestoneType } from '../../content/data';
 import { useSmoothScroll } from '../../providers/SmoothScroll';
@@ -9,6 +9,7 @@ import { cx } from '../../lib/cx';
 import PageLink from '../ui/PageLink';
 import SectionHeading from '../ui/SectionHeading';
 import { FadeIn } from '../ui/Reveal';
+import Counter from '../reactbits/Counter';
 import HoloCard from '../reactbits/HoloCard';
 
 const YEARS = [...new Set(MILESTONES.map((m) => m.year))];
@@ -79,6 +80,24 @@ export default function Journey() {
             </p>
           }
         />
+
+        <dl className="mt-[clamp(3rem,8vh,5rem)] grid grid-cols-2 border-t border-line lg:grid-cols-4">
+          {STATS.map((stat, i) => (
+            <div
+              key={i}
+              className="flex flex-col-reverse justify-end border-b border-line py-8 pr-4 even:pl-5 lg:border-b-0 lg:border-l lg:px-8 lg:py-10 lg:first:border-l-0 lg:first:pl-0 lg:even:pl-8"
+            >
+              <dt className="mt-4 max-w-[14rem] text-sm text-fg-3">{t.journey.stats[i]}</dt>
+              <dd className="flex items-baseline text-[clamp(3rem,6.5vw,6.5rem)] leading-none tracking-[-0.05em] tabular">
+                {stat.prefix && <span className="text-fg-3">{stat.prefix}</span>}
+                <Counter value={stat.value} />
+                {stat.suffix && (
+                  <span className={stat.suffix.length > 1 ? 'ml-1 text-[0.32em] tracking-[-0.02em] text-accent' : 'text-accent'}>{stat.suffix}</span>
+                )}
+              </dd>
+            </div>
+          ))}
+        </dl>
 
         <div className="mt-16 lg:mt-24 lg:grid lg:grid-cols-12 lg:gap-8">
           <aside className="hidden lg:col-span-4 lg:block">

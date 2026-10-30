@@ -1,13 +1,13 @@
 const en = {
   meta: {
-    title: 'Dilshod Dilmurodov — Full-stack developer',
+    title: 'Dilshod Dilmurodov — Software engineer, frontend',
     description:
-      'Full-stack JavaScript developer and software engineering student in Tashkent. Founder of Codenerd, a 90+ member coding community.',
+      'Frontend-focused software engineer in Tashkent. I build fast, accessible web products with React, Next.js and TypeScript — and the APIs behind them.',
   },
   nav: {
     about: 'About',
     work: 'Work',
-    skills: 'Skills',
+    skills: 'Services',
     journey: 'Journey',
     contact: 'Contact',
     menu: 'Open menu',
@@ -15,7 +15,7 @@ const en = {
     skip: 'Skip to content',
     home: 'Dilshod Dilmurodov — back to top',
     language: 'Language',
-    role: 'Full-stack developer',
+    role: 'Software engineer · Frontend',
     homeLink: 'Home',
     navigation: 'Navigation',
     socials: 'Socials',
@@ -24,15 +24,17 @@ const en = {
   hero: {
     lines: ['I build software', '& the community', 'that builds it.'],
     intro:
-      'Full-stack JavaScript developer studying Software Engineering & AI at MU University — and founder of Codenerd, a 90+ member coding community in Tashkent.',
+      'Frontend-focused software engineer studying Software Engineering & AI at MU University in Tashkent — and founder of Codenerd, a 90+ member coding community.',
+    pitch:
+      'I turn ideas into fast, accessible web products — polished React & TypeScript interfaces, purposeful motion, and the APIs behind them.',
     roles: ['Software engineering student', 'Founder of Codenerd', 'Mentor to 70+ students'],
     scroll: 'Scroll',
-    primary: 'Explore the work',
+    primary: 'See my work',
     secondary: 'Download CV',
     location: 'Based in Tashkent, UZ',
     localTime: 'Local time',
-    roleTop: 'Full-stack',
-    roleBottom: 'Developer & Founder',
+    roleTop: 'Software Engineer',
+    roleBottom: 'Frontend-focused',
     chips: [
       { k: 'Founder', v: 'Codenerd · 90+ members' },
       { k: 'Studying', v: 'Software Engineering & AI' },
@@ -41,28 +43,43 @@ const en = {
   },
   about: {
     label: 'About',
-    heading: 'Engineer. Founder. Mentor.',
     statement:
-      'I’m a full-stack JavaScript developer focused on practical problem-solving and system design — building real-world applications, and the communities that learn to build them.',
+      'I’m a software engineer who specializes in the frontend. I turn ideas into fast, responsive, accessible interfaces — and connect them to the APIs and databases that make them work.',
     paragraphs: [
       'At IT Park Bukhara I built full-stack web applications with React, Next.js, Node.js and SQL inside agile teams of 3–5 developers. Today I study Software Engineering & AI at MU University in Tashkent.',
       'In 2025 I founded Codenerd, a student-run coding community. I design its structured sessions on frontend, backend and databases, and mentor students through applied project work.',
     ],
-    stats: ['Codenerd members', 'Students mentored', 'Students reached through workshops', 'Weighted average at MU University'],
     facts: [
       { k: 'Based in', v: 'Tashkent, Uzbekistan' },
       { k: 'Studying', v: 'Software Engineering & AI' },
       { k: 'Speaks', v: 'Uzbek · English C1–C2 · Russian B1–B2 · German A1–A2' },
     ],
-    principles: [
-      { title: 'Build', text: 'Full-stack applications with React, Next.js, Node.js and SQL — responsive interfaces wired to well-designed data.' },
-      { title: 'Lead', text: 'Founder & President of Codenerd: structured learning, weekly hands-on sessions, 70+ students mentored.' },
-      { title: 'Grow', text: 'Academic excellence (WAM 95/100) paired with industry experience — always learning the next layer of the stack.' },
-    ],
+    approach: {
+      label: 'How I work',
+      heading: 'Fast. Accessible. Responsive. Maintainable.',
+      principles: [
+        {
+          title: 'Performance first',
+          text: 'Heavy pieces load only when they’re needed. On this site, the WebGL backdrop is split into its own bundle and loads only as you approach it.',
+        },
+        {
+          title: 'Accessible by default',
+          text: 'Semantic HTML, full keyboard support and visible focus. Every animation here respects your reduced-motion setting.',
+        },
+        {
+          title: 'Every screen, by design',
+          text: 'Interactions are designed per device, not just resized — touch screens get their own behaviour where desktop relies on hover.',
+        },
+        {
+          title: 'Built to maintain',
+          text: 'Typed components, with content kept in one place. This site runs in three languages from one typed dictionary — a missing translation fails the build.',
+        },
+      ],
+    },
   },
   work: {
     label: 'Selected work',
-    title: 'Things I’ve built & led',
+    title: 'What I’ve built',
     intro: 'Real work from internships, my community and this site. Open any project for the full story.',
     hint: 'Drag, swipe or use the arrow keys — click the centre card to open it',
     view: 'View',
@@ -82,30 +99,65 @@ const en = {
     period: 'Period',
     stack: 'Stack',
     highlights: 'Highlights',
+    challenge: 'The challenge',
+    built: 'What I built',
+    approach: 'How I approached it',
+    outcome: 'Outcome',
+    source: 'View the code on GitHub',
     present: 'Now',
     items: {
+      portfolio: {
+        category: 'Frontend engineering · Design',
+        title: 'This portfolio',
+        role: 'Design & development',
+        summary:
+          'A motion-rich personal site engineered like a product: fast on phones, usable from the keyboard, in three languages — with a real inbox behind its contact form.',
+        problem: 'Show real frontend craft — motion, WebGL, page transitions — without the site becoming slow, inaccessible or hard to read.',
+        details: [
+          'Curtain transitions that announce every section and page you move to',
+          'Scroll-driven typography, parallax galleries and a WebGL backdrop',
+          'A contact form that saves messages to a database, with an inbox page to read them',
+          'Standalone certificate pages and a case study for every project',
+          'English, Uzbek and Russian versions',
+        ],
+        approach: [
+          'WebGL effects are code-split and mount only as their section approaches, so the first load stays light',
+          'Every animation respects reduced motion, and touch screens get their own interactions instead of hover',
+          'One typed dictionary drives all three languages — a missing translation is a build error',
+          'The form talks to Supabase’s REST API directly, without an SDK, and falls back to email if saving fails',
+          'Extra pages are separate static entries, so the site runs on any static host without rewrite rules',
+        ],
+        outcome: '',
+      },
       itpark: {
         category: 'Full-stack · Internship',
         title: 'Full-stack web applications',
         role: 'Junior Full-Stack Developer — IT Park Bukhara',
         summary:
           'Responsive React and Next.js interfaces wired to Node.js services and relational databases — built in agile teams of 3–5 developers.',
+        problem: 'Client web applications that needed responsive interfaces backed by real services and data — delivered by small agile teams.',
         details: [
           'Developed full-stack web applications using React.js, Next.js, Node.js and SQL',
           'Built responsive UI components integrated with backend systems',
-          'Designed and optimized relational databases',
-          'Collaborated in agile teams of 3–5 developers, contributing to planning and client communication',
         ],
+        approach: [
+          'Designed and optimized the relational databases behind them',
+          'Worked in agile teams of 3–5 developers, contributing to planning and client communication',
+        ],
+        outcome: '',
       },
       bots: {
         category: 'Automation · Python',
         title: 'Telegram automation bots',
         role: 'Developer — IT Park Bukhara',
         summary: 'Python bots that take repetitive work off people’s plates — automation that lives where conversations already happen.',
-        details: [
-          'Developed Telegram bots using Python to automate routine tasks',
+        problem: 'Routine, repetitive tasks that took up people’s time.',
+        details: ['Developed Telegram bots in Python to automate routine tasks'],
+        approach: [
+          'Put the automation inside Telegram, where people already work — nothing new to install',
           'Built during the full-stack internship at IT Park Bukhara (2024–2025)',
         ],
+        outcome: '',
       },
       codenerd: {
         category: 'Community · Leadership',
@@ -114,31 +166,30 @@ const en = {
         role: 'Founder & President — Tashkent',
         summary:
           'A student-run coding community I founded and lead — 90+ active members learning frontend, backend and databases through hands-on sessions.',
+        problem: 'Give students a place to learn programming by building — with structure, mentoring and regular practice.',
         details: [
-          'Founded and led a student-run coding community with 90+ active members',
+          'Founded and led a student-run coding community',
           'Designed structured learning sessions covering frontend, backend and database fundamentals',
-          'Mentored 70+ students in programming concepts and applied project development',
-          'Organized weekly collaborative sessions focused on hands-on problem-solving',
-          'Reached approximately 200 students through workshops and peer-learning initiatives',
+          'Mentored students in programming concepts and applied project development',
         ],
-      },
-      portfolio: {
-        category: 'Design & engineering',
-        title: 'This portfolio',
-        role: 'Design & development',
-        summary: 'A clean, motion-led site: curtain transitions between sections, scroll-reactive type, magnetic controls and smooth scrolling — engineered to stay fast on phones.',
-        details: [
-          'Curtain transitions that announce every section you jump to',
-          'Scroll-velocity name band and parallax galleries',
-          'Available in English, Uzbek and Russian',
-          'Full keyboard and reduced-motion support',
+        approach: [
+          'Weekly collaborative sessions focused on hands-on problem-solving',
+          'Workshops and peer-learning initiatives to reach students beyond the core group',
         ],
+        outcome: '90+ active members, 70+ students mentored and about 200 students reached through workshops.',
       },
     },
   },
   skills: {
-    label: 'Skills',
-    title: 'A connected stack',
+    label: 'Services',
+    title: 'What I can do for you',
+    capabilities: {
+      frontend: { title: 'Frontend engineering', text: 'Polished, responsive, accessible interfaces in React, Next.js and TypeScript.' },
+      interactive: { title: 'Interactive experiences', text: 'Motion, scroll choreography and WebGL that make a product memorable — like this site.' },
+      build: { title: 'Idea to product', text: 'Turning an idea into a working web app — interface, API and database.' },
+      fullstack: { title: 'Full-stack & automation', text: 'Connecting interfaces to Node.js APIs and SQL databases, and automating routine work with bots.' },
+      mentoring: { title: 'Mentoring & workshops', text: 'Teaching frontend, backend and databases — 70+ students mentored.' },
+    },
     intro: 'Hover, focus or tap a technology to trace its connections — and see where I’ve put it to work.',
     hint: 'Drag to rotate',
     groups: { frontend: 'Frontend', backend: 'Backend', data: 'Data', workflow: 'Workflow' },
@@ -165,6 +216,7 @@ const en = {
     label: 'Journey',
     title: 'The path so far',
     milestonesLabel: 'milestones',
+    stats: ['Codenerd members', 'Students mentored', 'Students reached through workshops', 'Weighted average at MU University'],
     jump: 'Jump to',
     types: { work: 'Work', education: 'Education', certification: 'Certification', community: 'Community', event: 'Event' },
     months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -233,10 +285,9 @@ const en = {
   contact: {
     label: 'Contact',
     lines: ['Let’s build', 'something worth', 'remembering.'],
-    intro: 'Have a project, a role or a community idea? My inbox is open.',
+    intro: 'Hiring for a frontend role, or have a product in mind? Tell me about it — my inbox is open.',
     glassHint: 'Move to look through the glass — click to reshape it',
     cta: 'Get in touch',
-    help: { label: 'I can help you with', items: ['Web apps & websites', 'Full-stack development', 'Mentoring & workshops'] },
     copy: 'Copy email',
     copied: 'Copied to clipboard',
     channels: { email: 'Email', linkedin: 'LinkedIn', telegram: 'Telegram', whatsapp: 'WhatsApp', website: 'Website', phone: 'Phone' },
@@ -264,7 +315,7 @@ const en = {
     version: 'Version',
     edition: '© Edition',
   },
-  marquee: ['Full-stack developer', 'Community builder', 'Mentor', 'Software engineering student'],
+  marquee: ['Software engineer', 'Frontend-focused', 'Creative developer', 'Community builder'],
   cursor: { drag: 'Drag' },
 };
 

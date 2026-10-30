@@ -20,6 +20,8 @@ export const CONTACT = {
   telegramHandle: '@dan_thedeveloper',
   linkedin: 'https://www.linkedin.com/in/dilshod-dilmurodov/',
   website: 'https://metaware.uz',
+  // Not on the CV: the account this site's own repository lives under.
+  github: 'https://github.com/dilshoddilmurodov799-commits',
 } as const;
 
 export const TIMEZONE = 'Asia/Tashkent';
@@ -54,10 +56,13 @@ export type WorkKind = (typeof WORK_KINDS)[number];
  * `kinds` drive the filters on the all-projects page.
  */
 export const WORK = [
-  { id: 'itpark', period: '2024 — 2025', stack: ['React', 'Next.js', 'Node.js', 'SQL'], visual: 'interface', color: '#1d2230', kinds: ['development'] },
-  { id: 'bots', period: '2024 — 2025', stack: ['Python', 'Telegram Bot API'], visual: 'bots', color: '#18181b', kinds: ['development'] },
-  { id: 'codenerd', period: '2025 — present', stack: [], visual: 'community', color: '#e9e4d8', kinds: ['community'] },
-  { id: 'portfolio', period: '2026', stack: ['React', 'TypeScript', 'GSAP', 'Lenis'], visual: 'portfolio', color: '#ff6a3d', kinds: ['design', 'development'] },
+  {
+    id: 'portfolio', period: '2026', stack: ['React', 'TypeScript', 'Tailwind CSS', 'GSAP', 'Three.js', 'Supabase'],
+    visual: 'portfolio', color: '#ff6a3d', kinds: ['design', 'development'], repo: `${CONTACT.github}/portfolio`,
+  },
+  { id: 'itpark', period: '2024 — 2025', stack: ['React', 'Next.js', 'Node.js', 'SQL'], visual: 'interface', color: '#1d2230', kinds: ['development'], repo: null },
+  { id: 'bots', period: '2024 — 2025', stack: ['Python', 'Telegram Bot API'], visual: 'bots', color: '#18181b', kinds: ['development'], repo: null },
+  { id: 'codenerd', period: '2025 — present', stack: [], visual: 'community', color: '#e9e4d8', kinds: ['community'], repo: null },
 ] as const satisfies readonly {
   id: string;
   period: string;
@@ -65,6 +70,8 @@ export const WORK = [
   visual: WorkVisualKind;
   color: string;
   kinds: readonly WorkKind[];
+  /** Public source code, when there is some. */
+  repo: string | null;
 }[];
 
 /** Milestones featured on the sliding gallery's second row. */
@@ -77,9 +84,22 @@ export const HIGHLIGHTS = [
 
 export const SOCIALS = [
   { label: 'LinkedIn', href: CONTACT.linkedin },
+  { label: 'GitHub', href: CONTACT.github },
   { label: 'Telegram', href: CONTACT.telegram },
   { label: 'WhatsApp', href: CONTACT.whatsapp },
   { label: 'Email', href: `mailto:${CONTACT.email}` },
+] as const;
+
+/**
+ * What I can do for a visitor, frontend first. Each row's band lists the tools behind it;
+ * mentoring has no stack, so its band shows the localized soft skills instead.
+ */
+export const CAPABILITIES = [
+  { id: 'frontend', stack: ['TypeScript', 'React', 'Next.js', 'JavaScript', 'HTML', 'CSS', 'Tailwind CSS'] },
+  { id: 'interactive', stack: ['GSAP', 'Three.js', 'WebGL', 'Motion', 'Lenis'] },
+  { id: 'build', stack: ['React', 'Next.js', 'Node.js', 'SQL', 'Git', 'GitHub'] },
+  { id: 'fullstack', stack: ['Node.js', 'REST APIs', 'SQL', 'MySQL', 'MongoDB', 'Supabase', 'Python', 'Telegram Bot API'] },
+  { id: 'mentoring' },
 ] as const;
 
 export type SkillGroup = 'frontend' | 'backend' | 'data' | 'workflow';

@@ -1,10 +1,13 @@
-import { Suspense, useLayoutEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
-import { useInView } from 'motion/react';
+import { flushSync } from 'react-dom';
+import { motion, useInView } from 'motion/react';
 import { ArrowDownLeft } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { CONTACT, CV_URL } from '../../content/data';
 import { gsap } from '../../lib/gsap';
+import { onOpenContactForm } from '../../lib/contactForm';
+import { EASE_EXPO } from '../../lib/motion';
 import { messagesEnabled, sendMessage } from '../../lib/messages';
 import { useFinePointer, useReducedMotion } from '../../hooks/useMediaQuery';
 import { useSmoothScroll } from '../../providers/SmoothScroll';
@@ -16,6 +19,12 @@ import StarBorder from '../reactbits/StarBorder';
 import portrait from '../../assets/portrait-480.webp';
 
 const EMBER: [number, number, number] = [1, 0.416, 0.239];
+
+// Rows rise one after another when the form is revealed; the form itself stays put, so scrolling to it lands right.
+const row = {
+  hidden: { opacity: 0, y: 40 },
+  shown: { opacity: 1, y: 0, transition: { duration: 1.1, ease: EASE_EXPO } },
+};
 
 const input =
   'mt-4 w-full resize-none bg-transparent text-[clamp(1.05rem,1.4vw,1.25rem)] text-fg placeholder:text-fg-3 focus:outline-none focus-visible:outline-none';
@@ -59,10 +68,18 @@ function ContactForm() {
   ];
 
   return (
-    <form id="contact-form" onSubmit={submit} className="lg:col-span-8">
+    <motion.form
+      id="contact-form"
+      onSubmit={submit}
+      initial="hidden"
+      animate="shown"
+      transition={{ staggerChildren: 0.07 }}
+      className="lg:col-span-8"
+    >
       {fields.map((field, i) => (
-        <div
+        <motion.div
           key={field.name}
+          variants={row}
           className="grid grid-cols-[2.5rem_1fr] gap-x-4 border-t border-line py-[clamp(1.75rem,3.5vw,2.75rem)] transition-colors focus-within:border-fg sm:grid-cols-[4.5rem_1fr]"
         >
           <span className="pt-1.5 text-sm text-fg-3 tabular">0{i + 1}</span>
@@ -84,9 +101,9 @@ function ContactForm() {
               />
             )}
           </div>
-        </div>
+        </motion.div>
       ))}
-      <div className="relative h-[clamp(5rem,7vw,6rem)] border-t border-line">
+      <motion.div variants={row} className="relative h-[clamp(5rem,7vw,6rem)] border-t border-line">
         <p role="status" aria-live="polite" className="max-w-[45%] pt-6 text-[15px] leading-relaxed text-fg-2">
           {status === 'sent' ? f.sent : status === 'failed' ? f.failed : null}
         </p>
@@ -98,8 +115,8 @@ function ContactForm() {
         >
           {status === 'sending' ? f.sending : f.send}
         </RoundButton>
-      </div>
-    </form>
+      </motion.div>
+    </motion.form>
   );
 }
 
@@ -112,6 +129,9 @@ export default function Contact() {
   // The WebGL threads load as the section approaches, so their chunk never delays first paint.
   const near = useInView(root, { once: true, margin: '0px 0px 40% 0px' });
   const [first, ...rest] = t.contact.lines;
+  const [formOpen, setFormOpen] = useState(false);
+
+  useEffect(() => onOpenContactForm(() => setFormOpen(true)), []);
 
   // The top block rises out from under the closing curve, the button drifts and the arrow turns.
   useLayoutEffect(() => {
@@ -127,12 +147,14 @@ export default function Contact() {
   }, [reduced]);
 
   const toForm = () => {
+    // Render the form now, so there is something to focus and scroll to.
+    flushSync(() => setFormOpen(true));
     document.getElementById('cf-name')?.focus({ preventScroll: true });
     scrollTo('#contact-form', { offset: -window.innerHeight * 0.15 });
   };
 
   return (
-    <section id="contact" ref={root} aria-labelledby="contact-title" className="relative z-0 overflow-hidden bg-ink-2">
+    <section id="contact" ref={root} aria-labelledby="contact-title" className="relative z-0 overflow-hidden bg-ink-2 pb-[clamp(4rem,10vh,7rem)]">
       {near && !reduced && (
         <Suspense fallback={null}>
           <Threads
@@ -160,7 +182,7 @@ export default function Contact() {
 
         <div className="relative mt-[clamp(4rem,10vh,7rem)] border-b border-line">
           <div data-drift="" className="absolute right-[clamp(1rem,14vw,14rem)] top-0 -translate-y-1/2">
-            <RoundButton onClick={toForm} fill="var(--color-paper)" className="size-[clamp(8.5rem,13vw,12rem)] bg-accent px-4 text-[15px] font-medium text-ink">
+            <RoundButton onClick={toForm} aria-expanded={formOpen} fill="var(--color-paper)" className="size-[clamp(8.5rem,13vw,12rem)] bg-accent px-4 text-[15px] font-medium text-ink">
               {t.contact.cta}
             </RoundButton>
           </div>
@@ -184,31 +206,34 @@ export default function Contact() {
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-[1400px] gap-16 px-[var(--gutter)] pb-[clamp(4rem,10vh,7rem)] pt-[clamp(6rem,14vh,10rem)] lg:grid-cols-12 lg:gap-8">
-        <ContactForm />
-        <FadeIn as="div" className="space-y-10 lg:col-span-3 lg:col-start-10">
-          <div>
-            <p className="label">{t.contact.form.details}</p>
-            <dl className="mt-5 space-y-4 text-[15px]">
-              {t.about.facts.map((fact) => (
-                <div key={fact.k}>
-                  <dt className="text-fg-3">{fact.k}</dt>
-                  <dd className="mt-1">{fact.v}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-          <div>
-            <p className="label">{t.contact.form.cv}</p>
-            <StarBorder className="mt-5" innerClassName="bg-ink-2">
-              <a href={CV_URL} download="DilshodDilmurodovCV.pdf" className="block px-5 py-2.5 text-[15px]">
-                {t.hero.secondary}
-              </a>
-            </StarBorder>
-          </div>
-          <p className="max-w-xs text-[15px] leading-relaxed text-fg-2">{t.contact.intro}</p>
-        </FadeIn>
-      </div>
+      {/* The form and the details beside it stay hidden until a "Get in touch" button reveals them. */}
+      {formOpen && (
+        <div className="mx-auto grid max-w-[1400px] gap-16 px-[var(--gutter)] pt-[clamp(6rem,14vh,10rem)] lg:grid-cols-12 lg:gap-8">
+          <ContactForm />
+          <FadeIn as="div" className="space-y-10 lg:col-span-3 lg:col-start-10">
+            <div>
+              <p className="label">{t.contact.form.details}</p>
+              <dl className="mt-5 space-y-4 text-[15px]">
+                {t.about.facts.map((fact) => (
+                  <div key={fact.k}>
+                    <dt className="text-fg-3">{fact.k}</dt>
+                    <dd className="mt-1">{fact.v}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+            <div>
+              <p className="label">{t.contact.form.cv}</p>
+              <StarBorder className="mt-5" innerClassName="bg-ink-2">
+                <a href={CV_URL} download="DilshodDilmurodovCV.pdf" className="block px-5 py-2.5 text-[15px]">
+                  {t.hero.secondary}
+                </a>
+              </StarBorder>
+            </div>
+            <p className="max-w-xs text-[15px] leading-relaxed text-fg-2">{t.contact.intro}</p>
+          </FadeIn>
+        </div>
+      )}
     </section>
   );
 }

@@ -11,7 +11,7 @@ export interface FlowingItem {
   id: string;
   index: string;
   title: string;
-  /** Short line shown at rest on the right of the row. */
+  /** Short line shown at rest: beside the title on wide rows, under it on narrow ones. */
   meta: string;
   items: string[];
 }
@@ -57,12 +57,12 @@ function Row({ item, active }: { item: FlowingItem; active?: boolean }) {
 
   return (
     <li ref={row} className="relative overflow-hidden border-t border-line" {...hover}>
-      <div className="flex items-center justify-between gap-8 px-[clamp(1rem,5vw,6.25rem)] py-[clamp(2.25rem,4.2vw,3.5rem)]">
+      <div className="flex flex-col gap-4 px-[clamp(1rem,5vw,6.25rem)] py-[clamp(2.25rem,4.2vw,3.5rem)] md:flex-row md:items-center md:justify-between md:gap-8">
         <div className="flex items-baseline gap-5">
           <span className="text-sm text-fg-3 tabular">{item.index}</span>
           <h3 className="text-[clamp(2rem,4vw,3.75rem)] leading-none tracking-[-0.04em]">{item.title}</h3>
         </div>
-        <p className="text-right text-[15px] text-fg-3">{item.meta}</p>
+        <p className="max-w-[24rem] text-[15px] leading-relaxed text-fg-3 md:text-right">{item.meta}</p>
       </div>
       <ul className="sr-only">
         {item.items.map((label) => (

@@ -2,14 +2,14 @@ import type { Dict } from './en';
 
 const uz: Dict = {
   meta: {
-    title: 'Dilshod Dilmurodov — Full-stack dasturchi',
+    title: 'Dilshod Dilmurodov — dasturiy injener, frontend',
     description:
-      'Toshkentlik full-stack JavaScript dasturchi va dasturiy injiniring talabasi. 90+ a’zoli Codenerd dasturlash hamjamiyati asoschisi.',
+      'Toshkentlik, frontendga ixtisoslashgan dasturiy injener. React, Next.js va TypeScript yordamida tez va qulay veb-mahsulotlar — hamda ular tayanadigan API’lar yarataman.',
   },
   nav: {
     about: 'Men haqimda',
     work: 'Loyihalar',
-    skills: 'Ko‘nikmalar',
+    skills: 'Xizmatlar',
     journey: 'Yo‘l',
     contact: 'Aloqa',
     menu: 'Menyuni ochish',
@@ -17,7 +17,7 @@ const uz: Dict = {
     skip: 'Asosiy qismga o‘tish',
     home: 'Dilshod Dilmurodov — yuqoriga',
     language: 'Til',
-    role: 'Full-stack dasturchi',
+    role: 'Dasturiy injener · Frontend',
     homeLink: 'Bosh sahifa',
     navigation: 'Navigatsiya',
     socials: 'Ijtimoiy tarmoqlar',
@@ -26,15 +26,17 @@ const uz: Dict = {
   hero: {
     lines: ['Dasturlar yarataman', '— va ularni yozuvchi', 'hamjamiyatni.'],
     intro:
-      'MU Universityda dasturiy injiniring va sun’iy intellektni o‘rganayotgan full-stack JavaScript dasturchi. Toshkentdagi 90+ a’zoli Codenerd dasturlash hamjamiyati asoschisi.',
+      'Toshkentdagi MU Universityda dasturiy injiniring va sun’iy intellektni o‘rganayotgan, frontendga ixtisoslashgan dasturiy injener. 90+ a’zoli Codenerd dasturlash hamjamiyati asoschisi.',
+    pitch:
+      'G‘oyalarni tez va hamma uchun qulay veb-mahsulotlarga aylantiraman — puxta React va TypeScript interfeyslari, maqsadli animatsiya va ularning ortidagi API’lar.',
     roles: ['Dasturiy injiniring talabasi', 'Codenerd asoschisi', '70+ talabaning ustozi'],
     scroll: 'Pastga',
     primary: 'Loyihalarni ko‘rish',
     secondary: 'CV yuklab olish',
     location: 'Toshkent, O‘zbekiston',
     localTime: 'Mahalliy vaqt',
-    roleTop: 'Full-stack',
-    roleBottom: 'Dasturchi va asoschi',
+    roleTop: 'Dasturiy injener',
+    roleBottom: 'Frontend yo‘nalishida',
     chips: [
       { k: 'Asoschi', v: 'Codenerd · 90+ a’zo' },
       { k: 'Ta’lim', v: 'Dasturiy injiniring va SI' },
@@ -43,28 +45,43 @@ const uz: Dict = {
   },
   about: {
     label: 'Men haqimda',
-    heading: 'Muhandis. Asoschi. Mentor.',
     statement:
-      'Men amaliy muammolarni hal qilish va tizim dizayniga e’tibor qaratadigan full-stack JavaScript dasturchiman — real ilovalar yarataman va ularni yaratishni o‘rganayotgan hamjamiyatlarni quraman.',
+      'Men frontendga ixtisoslashgan dasturiy injenerman. G‘oyalarni tez, moslashuvchan va hamma uchun qulay interfeyslarga aylantiraman — va ularni ishlatadigan API hamda ma’lumotlar bazalariga ulayman.',
     paragraphs: [
       'IT Park Buxoroda 3–5 nafar dasturchidan iborat agile jamoalarda React, Next.js, Node.js va SQL yordamida full-stack veb-ilovalar yaratdim. Hozir Toshkentdagi MU Universityda dasturiy injiniring va sun’iy intellektni o‘rganyapman.',
       '2025-yilda talabalar dasturlash hamjamiyati — Codenerdga asos soldim. Frontend, backend va ma’lumotlar bazalari bo‘yicha tizimli mashg‘ulotlarni ishlab chiqaman va talabalarga amaliy loyihalarda ustozlik qilaman.',
     ],
-    stats: ['Codenerd a’zolari', 'Ustozlik qilingan talabalar', 'Seminarlar orqali qamrab olingan talabalar', 'MU Universitydagi o‘rtacha ball'],
     facts: [
       { k: 'Shahar', v: 'Toshkent, O‘zbekiston' },
       { k: 'Ta’lim', v: 'Dasturiy injiniring va SI' },
       { k: 'Tillar', v: 'O‘zbek · Ingliz C1–C2 · Rus B1–B2 · Nemis A1–A2' },
     ],
-    principles: [
-      { title: 'Yarataman', text: 'React, Next.js, Node.js va SQL asosidagi full-stack ilovalar — puxta loyihalangan ma’lumotlarga ulangan moslashuvchan interfeyslar.' },
-      { title: 'Yetaklayman', text: 'Codenerd asoschisi va prezidenti: tizimli ta’lim, haftalik amaliy mashg‘ulotlar, 70+ talabaga ustozlik.' },
-      { title: 'O‘saman', text: 'A’lo o‘qish (WAM 95/100) va soha tajribasi uyg‘unligi — stekning keyingi qatlamini doimo o‘rganaman.' },
-    ],
+    approach: {
+      label: 'Qanday ishlayman',
+      heading: 'Tez. Qulay. Moslashuvchan. Barqaror.',
+      principles: [
+        {
+          title: 'Avvalo tezlik',
+          text: 'Og‘ir qismlar faqat kerak bo‘lganda yuklanadi. Bu saytda WebGL fon alohida bundle’ga ajratilgan va siz unga yaqinlashgandagina yuklanadi.',
+        },
+        {
+          title: 'Hamma uchun qulay',
+          text: 'Semantik HTML, to‘liq klaviatura boshqaruvi va ko‘rinadigan fokus. Bu yerdagi har bir animatsiya «harakatni kamaytirish» sozlamangizni hisobga oladi.',
+        },
+        {
+          title: 'Har bir ekran uchun',
+          text: 'O‘zaro ta’sirlar shunchaki kichraytirilmaydi, har bir qurilma uchun loyihalanadi — desktopda hover bo‘lgan joyda sensorli ekranlarning o‘z xatti-harakati bor.',
+        },
+        {
+          title: 'Qo‘llab-quvvatlash oson',
+          text: 'Tiplangan komponentlar va bir joyda saqlanadigan kontent. Sayt bitta tiplangan lug‘at asosida uch tilda ishlaydi — tushib qolgan tarjima build’ni to‘xtatadi.',
+        },
+      ],
+    },
   },
   work: {
     label: 'Tanlangan ishlar',
-    title: 'Yaratgan va yetaklagan ishlarim',
+    title: 'Yaratgan ishlarim',
     intro: 'Amaliyotlar, hamjamiyatim va shu saytdagi real ishlar. To‘liq ma’lumot uchun istalgan loyihani oching.',
     hint: 'Torting, suring yoki strelkalardan foydalaning — ochish uchun markaziy kartani bosing',
     view: 'Ko‘rish',
@@ -84,30 +101,65 @@ const uz: Dict = {
     period: 'Davr',
     stack: 'Stek',
     highlights: 'Asosiy natijalar',
+    challenge: 'Vazifa',
+    built: 'Nima qildim',
+    approach: 'Qanday yondashdim',
+    outcome: 'Natija',
+    source: 'GitHub’dagi kod',
     present: 'hozir',
     items: {
+      portfolio: {
+        category: 'Frontend · Dizayn',
+        title: 'Ushbu portfolio',
+        role: 'Dizayn va dasturlash',
+        summary:
+          'Mahsulot kabi qurilgan, animatsiyaga boy shaxsiy sayt: telefonda tez, klaviatura bilan qulay, uch tilda — aloqa formasi ortida esa haqiqiy pochta qutisi.',
+        problem: 'Frontend mahoratini — animatsiya, WebGL, sahifalararo o‘tishlarni — saytni sekin, noqulay yoki o‘qish qiyin qilmasdan ko‘rsatish.',
+        details: [
+          'Har bir bo‘lim va sahifani e’lon qiluvchi parda o‘tishlari',
+          'Skrollga bog‘langan tipografiya, parallaks galereyalar va WebGL fon',
+          'Xabarlarni ma’lumotlar bazasiga saqlaydigan aloqa formasi va ularni o‘qish sahifasi',
+          'Alohida sertifikat sahifalari va har bir loyiha uchun keys',
+          'Ingliz, o‘zbek va rus tillaridagi versiyalar',
+        ],
+        approach: [
+          'WebGL effektlari alohida bundle’larga ajratilgan va faqat o‘z bo‘limi yaqinlashganda ulanadi — birinchi yuklanish yengil qoladi',
+          'Har bir animatsiya reduced motion’ni hisobga oladi, sensorli ekranlar esa hover o‘rniga o‘z o‘zaro ta’sirlariga ega',
+          'Uch tilni bitta tiplangan lug‘at boshqaradi — tushib qolgan tarjima build xatosiga aylanadi',
+          'Forma Supabase REST API’siga SDK’siz to‘g‘ridan-to‘g‘ri murojaat qiladi va saqlab bo‘lmasa emailga o‘tadi',
+          'Qo‘shimcha sahifalar alohida statik kirish nuqtalari — sayt istalgan statik hostingda rewrite qoidalarisiz ishlaydi',
+        ],
+        outcome: '',
+      },
       itpark: {
         category: 'Full-stack · Amaliyot',
         title: 'Full-stack veb-ilovalar',
         role: 'Junior Full-Stack Developer — IT Park Buxoro',
         summary:
           'Node.js servislari va relyatsion ma’lumotlar bazalariga ulangan React va Next.js interfeyslari — 3–5 nafar dasturchidan iborat agile jamoalarda.',
+        problem: 'Mijozlar uchun veb-ilovalar: real servislar va ma’lumotlarga tayangan moslashuvchan interfeyslar — kichik agile jamoalarda.',
         details: [
           'React.js, Next.js, Node.js va SQL yordamida full-stack veb-ilovalar ishlab chiqdim',
           'Backend tizimlariga integratsiya qilingan moslashuvchan UI komponentlar yaratdim',
-          'Relyatsion ma’lumotlar bazalarini loyihaladim va optimallashtirdim',
+        ],
+        approach: [
+          'Ular uchun relyatsion ma’lumotlar bazalarini loyihaladim va optimallashtirdim',
           '3–5 nafar dasturchidan iborat agile jamoalarda rejalashtirish va mijozlar bilan muloqotda qatnashdim',
         ],
+        outcome: '',
       },
       bots: {
         category: 'Avtomatlashtirish · Python',
         title: 'Telegram avtomatlashtirish botlari',
         role: 'Dasturchi — IT Park Buxoro',
         summary: 'Takroriy ishlarni o‘z zimmasiga oladigan Python botlar — odamlar allaqachon muloqot qiladigan joyda avtomatlashtirish.',
-        details: [
-          'Kundalik vazifalarni avtomatlashtirish uchun Python’da Telegram botlar ishlab chiqdim',
+        problem: 'Odamlarning vaqtini oladigan takroriy, kundalik vazifalar.',
+        details: ['Kundalik vazifalarni avtomatlashtirish uchun Python’da Telegram botlar ishlab chiqdim'],
+        approach: [
+          'Avtomatlashtirish odamlar allaqachon ishlaydigan Telegram ichida — hech narsa o‘rnatish shart emas',
           'IT Park Buxorodagi full-stack amaliyot davomida yaratilgan (2024–2025)',
         ],
+        outcome: '',
       },
       codenerd: {
         category: 'Hamjamiyat · Yetakchilik',
@@ -116,31 +168,30 @@ const uz: Dict = {
         role: 'Asoschi va prezident — Toshkent',
         summary:
           'Men asos solgan va boshqarayotgan talabalar dasturlash hamjamiyati — 90+ faol a’zo frontend, backend va ma’lumotlar bazalarini amaliyotda o‘rganadi.',
+        problem: 'Talabalarga dasturlashni amaliyotda — tizimli, ustoz yordamida va muntazam mashg‘ulotlar bilan o‘rganish imkonini berish.',
         details: [
-          '90+ faol a’zoga ega talabalar dasturlash hamjamiyatiga asos soldim va uni boshqardim',
+          'Talabalar dasturlash hamjamiyatiga asos soldim va uni boshqardim',
           'Frontend, backend va ma’lumotlar bazalari asoslari bo‘yicha tizimli mashg‘ulotlar ishlab chiqdim',
-          '70+ talabaga dasturlash va amaliy loyiha ishlab chiqishda ustozlik qildim',
-          'Amaliy muammolarni hal qilishga qaratilgan haftalik hamkorlik mashg‘ulotlarini tashkil qildim',
-          'Seminarlar va o‘zaro o‘rganish tashabbuslari orqali 200 ga yaqin talabani qamrab oldim',
+          'Talabalarga dasturlash va amaliy loyiha ishlab chiqishda ustozlik qildim',
         ],
-      },
-      portfolio: {
-        category: 'Dizayn va dasturlash',
-        title: 'Ushbu portfolio',
-        role: 'Dizayn va dasturlash',
-        summary: 'Toza, harakatga boy sayt: bo‘limlar orasidagi parda o‘tishlari, skrollga javob beruvchi matn, magnit tugmalar va silliq skroll — telefonlarda ham tez ishlaydi.',
-        details: [
-          'Har bir bo‘limni e’lon qiluvchi parda o‘tishlari',
-          'Skroll tezligiga bog‘langan ism lentasi va parallaks galereyalar',
-          'Ingliz, o‘zbek va rus tillarida mavjud',
-          'Klaviatura va reduced motion’ni to‘liq qo‘llab-quvvatlash',
+        approach: [
+          'Amaliy muammolarni hal qilishga qaratilgan haftalik hamkorlik mashg‘ulotlari',
+          'Asosiy guruhdan tashqaridagi talabalarni qamrab olish uchun seminarlar va o‘zaro o‘rganish tashabbuslari',
         ],
+        outcome: '90+ faol a’zo, 70+ talabaga ustozlik va seminarlar orqali 200 ga yaqin talaba qamrovi.',
       },
     },
   },
   skills: {
-    label: 'Ko‘nikmalar',
-    title: 'Bog‘langan stek',
+    label: 'Xizmatlar',
+    title: 'Sizga qanday yordam beraman',
+    capabilities: {
+      frontend: { title: 'Frontend dasturlash', text: 'React, Next.js va TypeScript’da puxta, moslashuvchan va hamma uchun qulay interfeyslar.' },
+      interactive: { title: 'Interaktiv tajribalar', text: 'Mahsulotni esda qolarli qiladigan animatsiya, skroll ssenariylari va WebGL — xuddi shu saytdagidek.' },
+      build: { title: 'G‘oyadan mahsulotgacha', text: 'G‘oyangizni ishlaydigan veb-ilovaga aylantiraman — interfeys, API va ma’lumotlar bazasi.' },
+      fullstack: { title: 'Full-stack va avtomatlashtirish', text: 'Interfeyslarni Node.js API va SQL bazalariga ulayman, kundalik ishlarni botlar bilan avtomatlashtiraman.' },
+      mentoring: { title: 'Mentorlik va seminarlar', text: 'Frontend, backend va ma’lumotlar bazalarini o‘rgataman — 70+ talabaga ustozlik qilganman.' },
+    },
     intro: 'Texnologiya bog‘lanishlarini va uni qayerda qo‘llaganimni ko‘rish uchun ustiga olib boring, tanlang yoki bosing.',
     hint: 'Aylantirish uchun torting',
     groups: { frontend: 'Frontend', backend: 'Backend', data: 'Ma’lumotlar', workflow: 'Ish jarayoni' },
@@ -167,6 +218,7 @@ const uz: Dict = {
     label: 'Yo‘l',
     title: 'Bosib o‘tilgan yo‘l',
     milestonesLabel: 'bosqich',
+    stats: ['Codenerd a’zolari', 'Ustozlik qilingan talabalar', 'Seminarlar orqali qamrab olingan talabalar', 'MU Universitydagi o‘rtacha ball'],
     jump: 'O‘tish',
     types: { work: 'Ish', education: 'Ta’lim', certification: 'Sertifikat', community: 'Hamjamiyat', event: 'Tadbir' },
     months: ['yan', 'fev', 'mar', 'apr', 'may', 'iyn', 'iyl', 'avg', 'sen', 'okt', 'noy', 'dek'],
@@ -235,10 +287,9 @@ const uz: Dict = {
   contact: {
     label: 'Aloqa',
     lines: ['Keling, yodda', 'qoladigan narsa', 'yarataylik.'],
-    intro: 'Loyiha, vakansiya yoki hamjamiyat g‘oyasi bormi? Xabaringizni kutaman.',
+    intro: 'Frontend dasturchi qidiryapsizmi yoki mahsulot g‘oyangiz bormi? Batafsil yozing — xabaringizni kutaman.',
     glassHint: 'Shisha orqali qarash uchun kursorni yuring — shaklini o‘zgartirish uchun bosing',
     cta: 'Bog‘lanish',
-    help: { label: 'Quyidagilarda yordam beraman', items: ['Veb-ilovalar va saytlar', 'Full-stack dasturlash', 'Mentorlik va seminarlar'] },
     copy: 'Emailni nusxalash',
     copied: 'Nusxalandi',
     channels: { email: 'Email', linkedin: 'LinkedIn', telegram: 'Telegram', whatsapp: 'WhatsApp', website: 'Veb-sayt', phone: 'Telefon' },
@@ -266,7 +317,7 @@ const uz: Dict = {
     version: 'Versiya',
     edition: '© Nashr',
   },
-  marquee: ['Full-stack dasturchi', 'Hamjamiyat quruvchisi', 'Ustoz', 'Dasturiy injiniring talabasi'],
+  marquee: ['Dasturiy injener', 'Frontend yo‘nalishi', 'Kreativ dasturchi', 'Hamjamiyat quruvchisi'],
   cursor: { drag: 'Torting' },
 };
 

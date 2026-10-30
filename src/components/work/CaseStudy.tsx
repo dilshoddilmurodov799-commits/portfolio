@@ -23,6 +23,7 @@ interface CaseStudyProps {
 
 const pad = (n: number) => String(n).padStart(2, '0');
 const frame = 'relative overflow-hidden rounded-[clamp(1rem,1.6vw,1.5rem)] ring-1 ring-inset ring-white/[0.06]';
+const outline = 'h-12 border border-line px-5 text-sm transition-colors duration-300 hover:text-ink focus-visible:text-ink';
 
 /** A project's own screen: the curtain opens onto it, and closes it again on the way back. */
 function Page({ item, index, onClose, onNext }: { item: WorkItem; index: number; onClose: () => void; onNext: () => void }) {
@@ -50,10 +51,7 @@ function Page({ item, index, onClose, onNext }: { item: WorkItem; index: number;
       <div className="sticky top-0 z-10 bg-gradient-to-b from-ink from-40% to-transparent px-[var(--gutter)] pb-8 pt-[clamp(1rem,2.6vw,2rem)]">
         <div className="mx-auto flex max-w-[1400px] items-center justify-between">
           <span data-autofocus="" tabIndex={-1} className="sr-only" />
-          <RoundButton
-            onClick={onClose}
-            className="h-12 border border-line px-5 text-sm transition-colors duration-300 hover:text-ink focus-visible:text-ink"
-          >
+          <RoundButton onClick={onClose} className={outline}>
             <ArrowLeft aria-hidden="true" className="size-4" />
             {t.work.back}
           </RoundButton>
@@ -97,32 +95,44 @@ function Page({ item, index, onClose, onNext }: { item: WorkItem; index: number;
         <FadeIn as="p" className="text-[clamp(1.4rem,2.4vw,2.25rem)] leading-[1.3] tracking-[-0.02em] lg:col-span-7">
           {copy.summary}
         </FadeIn>
-        <div className="lg:col-span-4 lg:col-start-9">
-          <h3 className="label">{t.work.highlights}</h3>
-          <ul className="mt-5 border-b border-line">
-            {copy.details.map((detail, i) => (
-              <li key={i} className="flex gap-5 border-t border-line py-5 text-[15px] leading-relaxed text-fg-2">
-                <span className="pt-0.5 text-sm text-accent tabular">{pad(i + 1)}</span>
-                {detail}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <FadeIn as="div" className="lg:col-span-4 lg:col-start-9">
+          <h3 className="label">{t.work.challenge}</h3>
+          <p className="mt-5 text-[clamp(1.05rem,1.3vw,1.2rem)] leading-relaxed">{copy.problem}</p>
+          {item.repo && (
+            <RoundButton href={item.repo} target="_blank" rel="noopener noreferrer" wrapperClassName="mt-8" className={outline}>
+              {t.work.source}
+              <ArrowUpRight aria-hidden="true" className="size-4" />
+            </RoundButton>
+          )}
+        </FadeIn>
       </section>
 
-      {/* A closer look: the same artwork, cropped in from two corners */}
-      <div className="mx-auto grid max-w-[calc(1400px_+_2*var(--gutter))] gap-4 px-[var(--gutter)] md:grid-cols-2">
+      {/* The engineering story, revealed as you read on: what was built, then the decisions behind it. */}
+      <section className="mx-auto grid max-w-[calc(1400px_+_2*var(--gutter))] gap-12 px-[var(--gutter)] md:grid-cols-2 lg:gap-8">
         {[
-          { background: 'var(--color-ink-3)', crop: 'origin-[20%_25%]' },
-          { background: item.color, crop: 'origin-[80%_75%]' },
-        ].map((tile, i) => (
-          <FadeIn key={tile.crop} delay={i * 0.1}>
-            <div aria-hidden="true" className={`${frame} aspect-square`} style={{ background: tile.background }}>
-              <ProjectArt kind={item.visual} className={`scale-[1.7] ${tile.crop}`} />
-            </div>
+          { label: t.work.built, points: copy.details },
+          { label: t.work.approach, points: copy.approach },
+        ].map((group, g) => (
+          <FadeIn key={group.label} as="div" delay={g * 0.1}>
+            <h3 className="label">{group.label}</h3>
+            <ul className="mt-5 border-b border-line">
+              {group.points.map((point, i) => (
+                <li key={i} className="flex gap-5 border-t border-line py-5 text-[15px] leading-relaxed text-fg-2">
+                  <span className="pt-0.5 text-sm text-accent tabular">{pad(i + 1)}</span>
+                  {point}
+                </li>
+              ))}
+            </ul>
           </FadeIn>
         ))}
-      </div>
+      </section>
+
+      {copy.outcome && (
+        <FadeIn as="div" className="mx-auto mt-[clamp(4rem,10vh,7rem)] max-w-[calc(1400px_+_2*var(--gutter))] px-[var(--gutter)]">
+          <h3 className="label">{t.work.outcome}</h3>
+          <p className="mt-5 max-w-[28ch] text-[clamp(1.75rem,3.4vw,3.25rem)] leading-[1.1] tracking-[-0.03em]">{copy.outcome}</p>
+        </FadeIn>
+      )}
 
       {/* Next project */}
       <button
