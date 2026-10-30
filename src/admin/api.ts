@@ -17,7 +17,7 @@ export type Flags = Partial<Pick<Message, 'read' | 'archived'>>;
 
 /** The session is missing or has expired: show the password screen again. */
 export class SignedOut extends Error {}
-/** The server is missing its settings (see .env.example). */
+/** The server is missing its settings (SUPABASE_URL, SUPABASE_SECRET_KEY, SESSION_SECRET, ADMIN_PASSWORD). */
 export class NotConfigured extends Error {}
 
 async function call(path: string, init: { method?: string; body?: unknown } = {}) {

@@ -251,7 +251,7 @@ function Notice({ status, onRetry }: { status: Status; onRetry: () => void }) {
           <h1 className="text-xl tracking-[-0.02em]">{status === 'unavailable' ? 'The backend isn’t configured yet' : 'Couldn’t load messages'}</h1>
           <p className="mt-3 text-sm leading-relaxed text-fg-2">
             {status === 'unavailable'
-              ? 'Set SUPABASE_URL, SUPABASE_SECRET_KEY, SESSION_SECRET and ADMIN_PASSWORD on the server (see .env.example), then reload.'
+              ? 'Set SUPABASE_URL, SUPABASE_SECRET_KEY, SESSION_SECRET and ADMIN_PASSWORD on the server, then reload.'
               : 'The server didn’t answer. Check your connection and try again.'}
           </p>
           <button type="button" onClick={onRetry} className={cx(button, 'mt-6')}>

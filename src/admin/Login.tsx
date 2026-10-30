@@ -9,7 +9,7 @@ import { button, glass, primary } from './ui';
 const ERRORS: Record<Exclude<LoginResult, 'ok'>, string> = {
   wrong: 'Wrong password.',
   limited: 'Too many attempts. Wait 15 minutes and try again.',
-  unavailable: 'The server isn’t configured yet: set its environment variables (see .env.example).',
+  unavailable: 'The server isn’t configured yet: set its environment variables, then reload.',
   error: 'Couldn’t reach the server. Check your connection and try again.',
 };
 
