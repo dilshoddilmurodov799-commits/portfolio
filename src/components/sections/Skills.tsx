@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { SKILLS } from '../../content/data';
 import type { SkillGroup } from '../../content/data';
-import { useFinePointer } from '../../hooks/useMediaQuery';
+import { useFinePointer, useReducedMotion } from '../../hooks/useMediaQuery';
 import { FadeIn } from '../ui/Reveal';
 import FlowingMenu from '../reactbits/FlowingMenu';
 import LetterGlitch from '../reactbits/LetterGlitch';
@@ -18,6 +18,7 @@ const summarize = (labels: string[]) => labels.slice(0, 3).join(', ') + (labels.
 export default function Skills() {
   const { t } = useLanguage();
   const fine = useFinePointer();
+  const reduced = useReducedMotion();
   const head = useRef<HTMLElement>(null);
 
   const rows = [
@@ -46,9 +47,11 @@ export default function Skills() {
         </header>
 
         <div className="mt-[clamp(3rem,8vh,6rem)]">
-          {fine ? (
-            // Hover a row: its stack flows past on an orange band.
+          {fine || !reduced ? (
+            // Hover a row: its stack flows past on an orange band. Touch screens can't hover, so there
+            // the rows take turns on their own; with reduced motion they get the static list instead.
             <FlowingMenu
+              auto={!fine}
               items={rows.map((row) => ({
                 id: row.id,
                 index: row.index,

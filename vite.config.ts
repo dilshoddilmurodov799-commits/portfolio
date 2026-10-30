@@ -15,6 +15,7 @@ export default defineConfig({
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
         adminpanel: fileURLToPath(new URL('./adminpanel/index.html', import.meta.url)),
+        certificate: fileURLToPath(new URL('./certificate/index.html', import.meta.url)),
       },
     },
   },

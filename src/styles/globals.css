@@ -315,7 +315,6 @@ a.link-line:focus-visible::after {
 /* Reduced motion                                                      */
 /* ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
-  .pulse-dot,
   .spin-slow,
   .shiny-text,
   .flowing-marquee,

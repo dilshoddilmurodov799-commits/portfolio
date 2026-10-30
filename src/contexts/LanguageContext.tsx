@@ -30,15 +30,17 @@ function readStoredLocale(): Locale {
   return 'en';
 }
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
+/** `syncMeta` off lets a standalone page (e.g. a certificate) keep its own title. */
+export function LanguageProvider({ children, syncMeta = true }: { children: ReactNode; syncMeta?: boolean }) {
   const [locale, setLocaleState] = useState<Locale>(readStoredLocale);
   const t = dictionaries[locale];
 
   useEffect(() => {
     document.documentElement.lang = locale;
+    if (!syncMeta) return;
     document.title = t.meta.title;
     document.querySelector('meta[name="description"]')?.setAttribute('content', t.meta.description);
-  }, [locale, t]);
+  }, [locale, t, syncMeta]);
 
   const setLocale = useCallback((next: Locale) => {
     setLocaleState(next);

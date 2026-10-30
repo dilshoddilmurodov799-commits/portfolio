@@ -160,6 +160,7 @@ const en = {
     beyond: 'Beyond code',
     soft: ['Planning', 'Mentoring', 'Coordinating learning sessions', 'Team management', 'Scheduling', 'Resource management'],
   },
+  certificate: { label: 'Certificate', back: 'Back to journey', full: 'Open full size', next: 'Next certificate', issuer: 'Issued by', date: 'Date', result: 'Result', missing: 'This certificate could not be found.' },
   journey: {
     label: 'Journey',
     title: 'The path so far',
@@ -174,7 +175,7 @@ const en = {
         detail: 'Supported 60+ students toward IELTS and CEFR certification goals with structured lesson plans.',
         links: [] as string[],
       },
-      sat: { title: 'SAT 1400', org: 'College Board', detail: 'Math 780 · Reading & Writing 620.', links: [] as string[] },
+      sat: { title: 'SAT 1400', org: 'College Board', detail: 'Math 780 · Reading & Writing 620.', links: ['Certificate'] },
       itpark: {
         title: 'Junior Full-Stack Developer',
         org: 'IT Park Bukhara · Internship & bootcamp',
@@ -189,7 +190,7 @@ const en = {
       },
       itfront: { title: 'Front-end programming', org: 'IT Park · Certificate', detail: '', links: ['Certificate'] },
       school: { title: 'Secondary education', org: 'Public School No. 41 · Gijduvan, Bukhara', detail: 'Graduated.', links: [] as string[] },
-      itreact: { title: 'ReactJS & MySQL Database Developer', org: 'IT Park · Certificates', detail: '', links: ['ReactJS', 'MySQL'] },
+      itreact: { title: 'ReactJS & MySQL Database Developer', org: 'IT Park · Certificates', detail: '', links: ['ReactJS', 'MySQL Database Developer'] },
       mu: {
         title: 'Software Engineering & AI',
         org: 'MU University · Tashkent',
@@ -208,7 +209,7 @@ const en = {
         detail: 'Insights on leadership, team management and mentoring from global tech leaders.',
         links: ['Event recap'],
       },
-      ielts: { title: 'IELTS 8.0', org: 'IDP', detail: 'Listening 8.5 · Reading 8.5 · Writing 7.0 · Speaking 7.0.', links: [] as string[] },
+      ielts: { title: 'IELTS 8.0', org: 'IDP', detail: 'Listening 8.5 · Reading 8.5 · Writing 7.0 · Speaking 7.0.', links: ['Certificate'] },
       devfest: {
         title: 'GDG DevFest Uzbekistan 2025',
         org: 'Festival · Tashkent',

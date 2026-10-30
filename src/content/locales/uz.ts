@@ -162,6 +162,7 @@ const uz: Dict = {
     beyond: 'Koddan tashqari',
     soft: ['Rejalashtirish', 'Ustozlik', 'Mashg‘ulotlarni tashkil qilish', 'Jamoani boshqarish', 'Jadval tuzish', 'Resurslarni boshqarish'],
   },
+  certificate: { label: 'Sertifikat', back: 'Yo‘lga qaytish', full: 'To‘liq o‘lchamda ochish', next: 'Keyingi sertifikat', issuer: 'Beruvchi', date: 'Sana', result: 'Natija', missing: 'Sertifikat topilmadi.' },
   journey: {
     label: 'Yo‘l',
     title: 'Bosib o‘tilgan yo‘l',
@@ -176,7 +177,7 @@ const uz: Dict = {
         detail: '60+ talabaga tizimli dars rejalari asosida IELTS va CEFR maqsadlariga erishishda yordam berdim.',
         links: [],
       },
-      sat: { title: 'SAT 1400', org: 'College Board', detail: 'Math 780 · Reading & Writing 620.', links: [] },
+      sat: { title: 'SAT 1400', org: 'College Board', detail: 'Math 780 · Reading & Writing 620.', links: ['Sertifikat'] },
       itpark: {
         title: 'Junior Full-Stack Developer',
         org: 'IT Park Buxoro · Amaliyot va bootcamp',
@@ -191,7 +192,7 @@ const uz: Dict = {
       },
       itfront: { title: 'Front-end programming', org: 'IT Park · Sertifikat', detail: '', links: ['Sertifikat'] },
       school: { title: 'O‘rta ta’lim', org: '41-maktab · G‘ijduvon, Buxoro', detail: 'Tamomladim.', links: [] },
-      itreact: { title: 'ReactJS va MySQL Database Developer', org: 'IT Park · Sertifikatlar', detail: '', links: ['ReactJS', 'MySQL'] },
+      itreact: { title: 'ReactJS va MySQL Database Developer', org: 'IT Park · Sertifikatlar', detail: '', links: ['ReactJS', 'MySQL Database Developer'] },
       mu: {
         title: 'Dasturiy injiniring va SI',
         org: 'MU University · Toshkent',
@@ -210,7 +211,7 @@ const uz: Dict = {
         detail: 'Jahon texnologiya yetakchilaridan yetakchilik, jamoani boshqarish va ustozlik bo‘yicha saboqlar.',
         links: ['Tadbir sharhi'],
       },
-      ielts: { title: 'IELTS 8.0', org: 'IDP', detail: 'Listening 8.5 · Reading 8.5 · Writing 7.0 · Speaking 7.0.', links: [] },
+      ielts: { title: 'IELTS 8.0', org: 'IDP', detail: 'Listening 8.5 · Reading 8.5 · Writing 7.0 · Speaking 7.0.', links: ['Sertifikat'] },
       devfest: {
         title: 'GDG DevFest Uzbekistan 2025',
         org: 'Festival · Toshkent',

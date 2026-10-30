@@ -162,6 +162,7 @@ const ru: Dict = {
     beyond: 'Помимо кода',
     soft: ['Планирование', 'Менторство', 'Организация занятий', 'Управление командой', 'Составление расписаний', 'Управление ресурсами'],
   },
+  certificate: { label: 'Сертификат', back: 'Назад к пути', full: 'Открыть в полном размере', next: 'Следующий сертификат', issuer: 'Выдан', date: 'Дата', result: 'Результат', missing: 'Сертификат не найден.' },
   journey: {
     label: 'Путь',
     title: 'Мой путь',
@@ -176,7 +177,7 @@ const ru: Dict = {
         detail: 'Помог 60+ студентам в подготовке к IELTS и CEFR по структурированным планам занятий.',
         links: [],
       },
-      sat: { title: 'SAT 1400', org: 'College Board', detail: 'Math 780 · Reading & Writing 620.', links: [] },
+      sat: { title: 'SAT 1400', org: 'College Board', detail: 'Math 780 · Reading & Writing 620.', links: ['Сертификат'] },
       itpark: {
         title: 'Junior Full-Stack Developer',
         org: 'IT Park Bukhara · Стажировка и буткемп',
@@ -191,7 +192,7 @@ const ru: Dict = {
       },
       itfront: { title: 'Front-end programming', org: 'IT Park · Сертификат', detail: '', links: ['Сертификат'] },
       school: { title: 'Среднее образование', org: 'Школа № 41 · Гиждуван, Бухара', detail: 'Окончил школу.', links: [] },
-      itreact: { title: 'ReactJS и MySQL Database Developer', org: 'IT Park · Сертификаты', detail: '', links: ['ReactJS', 'MySQL'] },
+      itreact: { title: 'ReactJS и MySQL Database Developer', org: 'IT Park · Сертификаты', detail: '', links: ['ReactJS', 'MySQL Database Developer'] },
       mu: {
         title: 'Программная инженерия и ИИ',
         org: 'MU University · Ташкент',
@@ -210,7 +211,7 @@ const ru: Dict = {
         detail: 'Идеи о лидерстве, управлении командой и менторстве от мировых лидеров IT.',
         links: ['Обзор события'],
       },
-      ielts: { title: 'IELTS 8.0', org: 'IDP', detail: 'Listening 8.5 · Reading 8.5 · Writing 7.0 · Speaking 7.0.', links: [] },
+      ielts: { title: 'IELTS 8.0', org: 'IDP', detail: 'Listening 8.5 · Reading 8.5 · Writing 7.0 · Speaking 7.0.', links: ['Сертификат'] },
       devfest: {
         title: 'GDG DevFest Uzbekistan 2025',
         org: 'Фестиваль · Ташкент',

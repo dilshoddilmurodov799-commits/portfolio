@@ -1,6 +1,13 @@
 // Locale-independent facts. Every value here is sourced from the CV
 // (src/assets/DilshodDilmurodovCV.pdf) — keep it that way.
 import cvUrl from '../assets/DilshodDilmurodovCV.pdf?url';
+import certSat from '../assets/certificates/sat.png';
+import certResponsive from '../assets/certificates/responsivewebdesign.jpg';
+import certJs from '../assets/certificates/javascriptalgorithmsanddatastructures.jpg';
+import certFrontend from '../assets/certificates/frontendprogramming.jpg';
+import certReact from '../assets/certificates/reactjs.jpg';
+import certMysql from '../assets/certificates/mysqldatabasedeveloper.jpg';
+import certIelts from '../assets/certificates/ielts.png';
 
 export const CV_URL = cvUrl;
 
@@ -115,6 +122,31 @@ export const SKILL_EDGES: [string, string][] = [
   ['git', 'github'], ['git', 'js'], ['github', 'html'],
 ];
 
+export interface Certificate {
+  id: string;
+  /** The journey milestone it belongs to — its copy names and describes the certificate. */
+  milestone: string;
+  image: string;
+  width: number;
+  height: number;
+  /** Where the issuer hosts the original, when it does. Kept for reference; not shown on the page. */
+  verify?: string;
+}
+
+/** Scans from src/assets/certificates, each shown on its own page (see certificatePath). */
+export const CERTIFICATES: Certificate[] = [
+  { id: 'sat', milestone: 'sat', image: certSat, width: 817, height: 777 },
+  { id: 'responsive-web-design', milestone: 'fcc', image: certResponsive, width: 1233, height: 832, verify: 'https://www.freecodecamp.org/certification/fcc534239b9-9a8b-4ed0-b70d-03c1f1e41f34/responsive-web-design' },
+  { id: 'javascript-algorithms', milestone: 'fcc', image: certJs, width: 1229, height: 834, verify: 'https://www.freecodecamp.org/certification/fcc534239b9-9a8b-4ed0-b70d-03c1f1e41f34/javascript-algorithms-and-data-structures-v8' },
+  { id: 'frontend-programming', milestone: 'itfront', image: certFrontend, width: 1165, height: 819, verify: 'https://itpark-bukhara.uz/certificate/A2442.pdf' },
+  { id: 'reactjs', milestone: 'itreact', image: certReact, width: 688, height: 451, verify: 'https://itpark-bukhara.uz/certificate/A2954.pdf' },
+  { id: 'mysql', milestone: 'itreact', image: certMysql, width: 816, height: 544, verify: 'https://itpark-bukhara.uz/certificate/A2949.pdf' },
+  { id: 'ielts', milestone: 'ielts', image: certIelts, width: 596, height: 841 },
+];
+
+/** A standalone page (certificate/index.html), so static hosts serve it without SPA rewrites. */
+export const certificatePath = (id: string) => `/certificate/?id=${id}`;
+
 export type MilestoneType = 'work' | 'education' | 'certification' | 'community' | 'event';
 
 export interface MilestoneMeta {
@@ -127,25 +159,22 @@ export interface MilestoneMeta {
 
 export const MILESTONES: MilestoneMeta[] = [
   { id: 'globallc', year: 2023, month: 9, type: 'work' },
-  { id: 'sat', year: 2024, month: 6, type: 'certification' },
+  { id: 'sat', year: 2024, month: 6, type: 'certification', links: [certificatePath('sat')] },
   { id: 'itpark', year: 2024, month: 10, type: 'work' },
   {
     id: 'fcc', year: 2025, month: 4, type: 'certification',
-    links: [
-      'https://www.freecodecamp.org/certification/fcc534239b9-9a8b-4ed0-b70d-03c1f1e41f34/responsive-web-design',
-      'https://www.freecodecamp.org/certification/fcc534239b9-9a8b-4ed0-b70d-03c1f1e41f34/javascript-algorithms-and-data-structures-v8',
-    ],
+    links: [certificatePath('responsive-web-design'), certificatePath('javascript-algorithms')],
   },
-  { id: 'itfront', year: 2025, month: 4, type: 'certification', links: ['https://itpark-bukhara.uz/certificate/A2442.pdf'] },
+  { id: 'itfront', year: 2025, month: 4, type: 'certification', links: [certificatePath('frontend-programming')] },
   { id: 'school', year: 2025, month: 5, type: 'education' },
   {
     id: 'itreact', year: 2025, month: 7, type: 'certification',
-    links: ['https://itpark-bukhara.uz/certificate/A2954.pdf', 'https://itpark-bukhara.uz/certificate/A2949.pdf'],
+    links: [certificatePath('reactjs'), certificatePath('mysql')],
   },
   { id: 'mu', year: 2025, month: 9, type: 'education', links: ['https://millatumidi.uz'] },
   { id: 'codenerd', year: 2025, month: 9, type: 'community' },
   { id: 'ictweek', year: 2025, month: 9, type: 'event', links: ['https://www.wisestone-t.com/en/post/ictweekuzbekistan2025-en'] },
-  { id: 'ielts', year: 2025, month: 11, type: 'certification' },
+  { id: 'ielts', year: 2025, month: 11, type: 'certification', links: [certificatePath('ielts')] },
   {
     id: 'devfest', year: 2025, month: 12, type: 'event',
     links: ['https://gdg.community.dev/events/details/google-gdg-tashkent-presents-gdg-devfest-uzbekistan-2025-innovate-and-connect/'],

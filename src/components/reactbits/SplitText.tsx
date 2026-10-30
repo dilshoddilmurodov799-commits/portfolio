@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import { motion } from 'motion/react';
 import { EASE_EXPO } from '../../lib/motion';
 
-const TAGS = { h2: motion.h2, h3: motion.h3, p: motion.p };
+const TAGS = { h1: motion.h1, h2: motion.h2, h3: motion.h3, p: motion.p };
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.022 } } };
 const char = {

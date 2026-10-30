@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { MILESTONES } from '../../content/data';
+import { certificateAt, describeCertificate } from '../../content/certificates';
 import type { MilestoneType } from '../../content/data';
 import { useSmoothScroll } from '../../providers/SmoothScroll';
 import { cx } from '../../lib/cx';
+import PageLink from '../ui/PageLink';
 import SectionHeading from '../ui/SectionHeading';
 import { FadeIn } from '../ui/Reveal';
 import HoloCard from '../reactbits/HoloCard';
@@ -141,22 +143,33 @@ export default function Journey() {
                             {copy.detail && <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-fg-2">{copy.detail}</p>}
                             {m.links && m.links.length > 0 && (
                               <ul className="relative z-[1] mt-5 flex flex-wrap gap-x-6 gap-y-2">
-                                {m.links.map((href, li) => (
-                                  <li key={href}>
-                                    <a
-                                      href={href}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="group/link inline-flex items-center gap-1.5 text-sm font-medium"
-                                    >
+                                {m.links.map((href, li) => {
+                                  // Certificates open their own page through the curtain; other links open in a new tab.
+                                  const cert = certificateAt(href);
+                                  const link = { href, className: 'group/link inline-flex items-center gap-1.5 text-sm font-medium' };
+                                  const children = (
+                                    <>
                                       <span className="link-line">{copy.links[li] ?? new URL(href).hostname}</span>
                                       <ArrowUpRight
                                         aria-hidden="true"
                                         className="size-3.5 transition-transform duration-500 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
                                       />
-                                    </a>
-                                  </li>
-                                ))}
+                                    </>
+                                  );
+                                  return (
+                                    <li key={href}>
+                                      {cert ? (
+                                        <PageLink {...link} label={describeCertificate(cert, t).name}>
+                                          {children}
+                                        </PageLink>
+                                      ) : (
+                                        <a {...link} target="_blank" rel="noopener noreferrer">
+                                          {children}
+                                        </a>
+                                      )}
+                                    </li>
+                                  );
+                                })}
                               </ul>
                             )}
                           </article>

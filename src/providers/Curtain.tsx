@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { gsap } from '../lib/gsap';
 import { useLanguage } from '../contexts/LanguageContext';
 import type { Locale } from '../contexts/LanguageContext';
+import type { Dict } from '../content/locales/en';
 import { useReducedMotion } from '../hooks/useMediaQuery';
 import { useSmoothScroll } from './SmoothScroll';
 import Asterisk from '../components/ui/Asterisk';
@@ -15,6 +16,8 @@ interface CurtainValue {
   ready: boolean;
   /** Covers the page, announces `label`, jumps to (or runs) `target` underneath and lifts again. */
   navigate: (target: Target, label: string) => void;
+  /** Covers the page, announces `label` and goes to another page (`href`), whose opening scene takes over. */
+  leave: (href: string, label: string) => void;
 }
 
 const CurtainContext = createContext<CurtainValue | null>(null);
@@ -39,12 +42,14 @@ const LAG = 0.12;
  * trailing edges sagging, then flattening; the orange one is offset by LAG, so a curved band
  * of colour sweeps the screen. Same gesture each time: navigation continues the intro.
  */
-export function CurtainProvider({ children }: { children: ReactNode }) {
-  const { locale } = useLanguage();
+export function CurtainProvider({ children, opening }: { children: ReactNode; opening?: (t: Dict) => string }) {
+  const { locale, t } = useLanguage();
   const { scrollTo, stop, start } = useSmoothScroll();
   const reduced = useReducedMotion();
   const [instant] = useState(reducedAtLoad);
-  const [words] = useState(() => [FIRST[locale], ...GREETINGS.filter((g) => g !== FIRST[locale])]);
+  // Arriving through the curtain from another page: `opening` replaces the greetings.
+  const [arrival] = useState(Boolean(opening));
+  const [words] = useState(() => (opening ? [opening(t)] : [FIRST[locale], ...GREETINGS.filter((g) => g !== FIRST[locale])]));
   const [text, setText] = useState(words[0]);
   const [ready, setReady] = useState(instant);
   const busy = useRef(!instant);
@@ -85,11 +90,11 @@ export function CurtainProvider({ children }: { children: ReactNode }) {
     let timer = 0;
     let cancelled = false;
     let exit: gsap.core.Timeline | undefined;
-    const fade = gsap.fromTo(
-      [label.current, meta.current],
-      { autoAlpha: 0, y: 12 },
-      { autoAlpha: 1, y: 0, duration: 0.9, delay: 0.2, ease: 'power3.out' },
-    );
+    // An arrival picks up where the last page's cover left off: name already up, no mark, and a
+    // section-change pause (ANNOUNCE) instead of the long first hold — so the reveal doesn't stall.
+    const fade = arrival
+      ? gsap.set(label.current, { autoAlpha: 1, y: 0 })
+      : gsap.fromTo([label.current, meta.current], { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.9, delay: 0.2, ease: 'power3.out' });
     const fonts = Promise.race([document.fonts?.ready ?? Promise.resolve(), new Promise((r) => setTimeout(r, 2000))]);
 
     const finish = () =>
@@ -104,7 +109,7 @@ export function CurtainProvider({ children }: { children: ReactNode }) {
       const last = i === words.length - 1;
       timer = window.setTimeout(() => (last ? finish() : show(i + 1)), last ? LAST_HOLD : STEP);
     };
-    timer = window.setTimeout(() => show(1), FIRST_HOLD);
+    timer = window.setTimeout(() => (arrival ? finish() : show(1)), arrival ? ANNOUNCE * 1000 : FIRST_HOLD);
 
     return () => {
       cancelled = true;
@@ -113,7 +118,27 @@ export function CurtainProvider({ children }: { children: ReactNode }) {
       exit?.kill();
       start();
     };
-  }, [instant, words, lift, stop, start]);
+  }, [instant, arrival, words, lift, stop, start]);
+
+  /** Brings both sheets up over the page and announces `name` on them. */
+  const cover = useCallback((name: string) => {
+    busy.current = true;
+    setText(name);
+    const h = sheets.current[1]!.offsetHeight;
+    const bow = leads.current[1]!.getBoundingClientRect().height;
+    const tl = gsap.timeline().set(root.current, { autoAlpha: 1 }).set(label.current, { autoAlpha: 0, y: 28 });
+    // Orange leads in, black follows over it.
+    [0, 1].forEach((i) => {
+      const at = i * LAG;
+      tl.fromTo(sheets.current[i], { y: h + bow }, { y: 0, duration: 0.95, ease: 'power4.inOut' }, at).fromTo(
+        leads.current[i],
+        { scaleY: 1 },
+        { scaleY: 0, duration: 0.8, ease: 'power3.inOut' },
+        at + 0.15,
+      );
+    });
+    return tl.to(label.current, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0.55 + LAG);
+  }, []);
 
   const navigate = useCallback<CurtainValue['navigate']>(
     (target, name) => {
@@ -123,29 +148,32 @@ export function CurtainProvider({ children }: { children: ReactNode }) {
         arrive();
         return;
       }
-      busy.current = true;
-      setText(name);
-      const h = sheets.current[1]!.offsetHeight;
-      const bow = leads.current[1]!.getBoundingClientRect().height;
-      const tl = gsap.timeline().set(root.current, { autoAlpha: 1 }).set(label.current, { autoAlpha: 0, y: 28 });
-      // Orange leads in, black follows over it.
-      [0, 1].forEach((i) => {
-        const at = i * LAG;
-        tl.fromTo(sheets.current[i], { y: h + bow }, { y: 0, duration: 0.95, ease: 'power4.inOut' }, at).fromTo(
-          leads.current[i],
-          { scaleY: 1 },
-          { scaleY: 0, duration: 0.8, ease: 'power3.inOut' },
-          at + 0.15,
-        );
-      });
-      tl.to(label.current, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0.55 + LAG)
-        .call(arrive)
-        .call(lift, undefined, `+=${ANNOUNCE}`);
+      cover(name).call(arrive).call(lift, undefined, `+=${ANNOUNCE}`);
     },
-    [reduced, scrollTo, lift],
+    [reduced, scrollTo, cover, lift],
   );
 
-  const value = useMemo(() => ({ ready, navigate }), [ready, navigate]);
+  const leave = useCallback<CurtainValue['leave']>(
+    (href, name) => {
+      const go = () => window.location.assign(href);
+      if (reduced || busy.current) {
+        go();
+        return;
+      }
+      // Back/forward cache can bring this page back still covered: lift the sheets off it then.
+      window.addEventListener(
+        'pageshow',
+        (e) => {
+          if (e.persisted) lift();
+        },
+        { once: true },
+      );
+      cover(name).call(go);
+    },
+    [reduced, cover, lift],
+  );
+
+  const value = useMemo(() => ({ ready, navigate, leave }), [ready, navigate, leave]);
 
   return (
     <CurtainContext.Provider value={value}>

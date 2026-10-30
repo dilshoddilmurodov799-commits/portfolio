@@ -21,8 +21,8 @@
       html { background: #0b0b0c; }
     </style>
     <script>
-      // Hosts (and Vite) that fall back to this page for /adminpanel: send it to the admin page itself.
-      if (location.pathname === '/adminpanel') location.replace('/adminpanel/' + location.search);
+      // Hosts (and Vite) that fall back to this page for a standalone page's bare path: send it to that page.
+      if (['/adminpanel', '/certificate'].includes(location.pathname)) location.replace(location.pathname + '/' + location.search);
     </script>
   </head>
   <body>

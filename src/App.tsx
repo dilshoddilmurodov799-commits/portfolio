@@ -5,6 +5,7 @@ import { SmoothScrollProvider, useSmoothScroll } from './providers/SmoothScroll'
 import { CurtainProvider, useCurtain } from './providers/Curtain';
 import { useScrolledPast } from './hooks/useScrolledPast';
 import { SECTION_IDS } from './content/data';
+import type { SectionId } from './content/data';
 import { ScrollTrigger } from './lib/gsap';
 import Header from './components/layout/Header';
 import MenuButton from './components/layout/MenuButton';
@@ -23,6 +24,12 @@ import Noise from './components/reactbits/Noise';
 
 // Old sub-pages now live as sections of the single-page experience.
 const LEGACY_ROUTES: Record<string, string> = { '/projects': '#work', '/certificates': '#journey', '/resume': '#journey' };
+
+/** Standalone pages (a certificate) link back with ?curtain=<section>: the opening scene then names that section. */
+const OPENING_SECTION = (() => {
+  const id = new URLSearchParams(window.location.search).get('curtain');
+  return (SECTION_IDS as readonly (string | null)[]).includes(id) ? (id as SectionId) : null;
+})();
 
 /** Where to land once the opening scene lifts: an old route or a section hash. */
 function initialTarget() {
@@ -96,7 +103,7 @@ export default function App() {
   return (
     <LanguageProvider>
       <SmoothScrollProvider>
-        <CurtainProvider>
+        <CurtainProvider opening={OPENING_SECTION ? (t) => t.nav[OPENING_SECTION] : undefined}>
           <MotionConfig reducedMotion="user">
             <Shell />
           </MotionConfig>
